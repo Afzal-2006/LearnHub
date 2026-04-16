@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Masterclass - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: #4facfe;
+        }
+
+        .back-btn {
+            background: #4facfe;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            background: #0080d0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lesson-section {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-section.active {
+            display: block;
+        }
+
+        .lesson-title {
+            color: #4facfe;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #4facfe;
+            padding-bottom: 0.5rem;
+        }
+
+        .lesson-subtitle {
+            color: #333;
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .syntax-table th {
+            background: #4facfe;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .syntax-table td {
+            padding: 12px; border-bottom: 1px solid #eee;
+        }
+
+        .syntax-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .example-block {
+            background: #e7f3ff;
+            border-left: 4px solid #4facfe;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .tip-block {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            border-color: #4facfe;
+            color: #4facfe;
+        }
+
+        .nav-btn.active {
+            background: #4facfe;
+            color: white;
+            border-color: #4facfe;
+        }
+
+        .button {
+            display: inline-block;
+            background: #4facfe;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            margin-right: 1rem;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #0080d0;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .lesson-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>🐍 Python Masterclass</h1>
+            <button class="back-btn" onclick="window.location.href='dashboard-firebase.html'">← Back to Dashboard</button>
+        </div>
+
+        <div class="header">
+            <h1>Python for Everyone</h1>
+            <p>Learn Python for web, data science, and automation</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="showLesson('intro')">Introduction</button>
+            <button class="nav-btn" onclick="showLesson('basics')">Python Basics</button>
+            <button class="nav-btn" onclick="showLesson('datastructures')">Data Structures</button>
+            <button class="nav-btn" onclick="showLesson('functions')">Functions</button>
+        </div>
+
+        <div id="intro" class="lesson-section active">
+            <h2 class="lesson-title">🐍 Introduction to Python</h2>
+            <p class="description">
+                Python is a simple, readable, and powerful programming language. It's perfect for beginners and widely used by professionals in web development, data science, and automation.
+            </p>
+
+            <h3 class="lesson-subtitle">Why Python?</h3>
+            <ul style="color: #555; line-height: 2; margin: 1rem 0;">
+                <li>✅ Easy to learn and read syntax</li>
+                <li>✅ Powerful libraries for various tasks</li>
+                <li>✅ Great for web development, data science, AI/ML</li>
+                <li>✅ Large community and lots of resources</li>
+                <li>✅ Cross-platform compatibility</li>
+            </ul>
+
+            <h3 class="lesson-subtitle">Your First Python Program</h3>
+            <div class="code-block">
+                <pre><code class="language-python">print("Hello, World!")
+print("Welcome to Python!")</code></pre>
+            </div>
+
+            <div class="example-block">
+                <strong>That's it!</strong> Python doesn't require classes or main methods like Java. Just write your code and run it!
+            </div>
+
+            <h3 class="lesson-subtitle">Running Python</h3>
+            <div class="code-block">
+                <pre><code class="language-bash"># Save your code in a file: hello.py
+
+# Run it from terminal
+python hello.py
+
+# Or use interactive mode
+python
+>>> print("Hello!")
+Hello!</code></pre>
+            </div>
+
+            <div class="tip-block">
+                <strong>💡 Note:</strong> Python uses indentation (spaces) to define code blocks instead of curly braces like other languages.
+            </div>
+
+            <button class="button" onclick="showLesson('basics')">Next: Python Basics →</button>
+        </div>
+
+        <div id="basics" class="lesson-section">
+            <h2 class="lesson-title">📚 Python Basics</h2>
+            <p class="description">
+                Learn variables, data types, and basic operations in Python.
+            </p>
+
+            <h3 class="lesson-subtitle">Variables and Data Types</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># Variables don't need type declaration
+name = "Alice"
+age = 25
+height = 5.8
+is_student = True
+
+# Different data types
+integer = 42              # int
+floating = 3.14          # float
+text = "Hello"           # str
+flag = False             # bool
+items = [1, 2, 3]        # list
+person = {"name": "Bob"} # dict
+
+# Printing variables
+print(name)
+print(f"I am {age} years old")  # f-strings (Python 3.6+)</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Operators</h3>
+            <table class="syntax-table">
+                <tr>
+                    <th>Operator</th>
+                    <th>Example</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <td>Addition</td>
+                    <td><code>5 + 3</code></td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>Subtraction</td>
+                    <td><code>10 - 4</code></td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>Multiplication</td>
+                    <td><code>4 * 5</code></td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>Division</td>
+                    <td><code>15 / 3</code></td>
+                    <td>5.0</td>
+                </tr>
+                <tr>
+                    <td>Floor Division</td>
+                    <td><code>15 // 4</code></td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>Power</td>
+                    <td><code>2 ** 3</code></td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>Modulus</td>
+                    <td><code>10 % 3</code></td>
+                    <td>1</td>
+                </tr>
+            </table>
+
+            <h3 class="lesson-subtitle">Conditional Statements</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># If-else statements
+age = 20
+
+if age >= 18:
+    print("You are an adult")
+elif age >= 13:
+    print("You are a teenager")
+else:
+    print("You are a child")
+
+# Using logical operators
+if age >= 18 and age < 65:
+    print("Working age")
+
+if score == 100 or extra_credit:
+    print("Perfect score!")</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Loops</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># For loop
+for i in range(5):
+    print(i)  # Prints 0, 1, 2, 3, 4
+
+# Loop through a list
+fruits = ["apple", "banana", "orange"]
+for fruit in fruits:
+    print(fruit)
+
+# While loop
+count = 0
+while count < 3:
+    print(count)
+    count += 1
+
+# Using break and continue
+for i in range(10):
+    if i == 5:
+        break      # Exit loop
+    if i % 2 == 0:
+        continue   # Skip even numbers
+    print(i)</code></pre>
+            </div>
+
+            <button class="button" onclick="showLesson('datastructures')">Next: Data Structures →</button>
+        </div>
+
+        <div id="datastructures" class="lesson-section">
+            <h2 class="lesson-title">📦 Data Structures</h2>
+            <p class="description">
+                Python has powerful built-in data structures for storing collections of data.
+            </p>
+
+            <h3 class="lesson-subtitle">Lists</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># Create a list
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+# Access elements (0-indexed)
+print(numbers[0])      # 1
+print(numbers[-1])     # 5 (last element)
+
+# List methods
+numbers.append(6)      # Add to end
+numbers.insert(0, 0)   # Insert at position
+numbers.remove(3)      # Remove value
+numbers.pop()          # Remove last element
+print(len(numbers))    # Length
+
+# List slicing
+print(numbers[1:3])    # Elements at index 1 and 2
+print(numbers[:3])     # First 3 elements
+print(numbers[2:])     # From index 2 to end</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Dictionaries</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># Create a dictionary (key-value pairs)
+student = {
+    "name": "Alice",
+    "age": 20,
+    "gpa": 3.8
+}
+
+# Access values
+print(student["name"])  # Alice
+print(student.get("age"))  # 20
+
+# Add/modify
+student["email"] = "alice@example.com"  # Add new key
+student["age"] = 21  # Modify existing key
+
+# Remove
+del student["email"]  # Delete key
+student.pop("gpa")    # Remove and return value
+
+# Loop through dictionary
+for key, value in student.items():
+    print(f"{key}: {value}")</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Tuples and Sets</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># Tuples (immutable - cannot be changed)
+colors = ("red", "green", "blue")
+print(colors[0])   # red
+# colors[0] = "yellow"  # ERROR! Cannot change
+
+# Sets (unique elements, unordered)
+unique_numbers = {1, 2, 3, 4, 5}
+unique_numbers.add(6)
+unique_numbers.remove(1)
+print(len(unique_numbers))  # 5
+
+# Set operations
+set_a = {1, 2, 3}
+set_b = {3, 4, 5}
+print(set_a.union(set_b))         # {1, 2, 3, 4, 5}
+print(set_a.intersection(set_b))   # {3}</code></pre>
+            </div>
+
+            <button class="button" onclick="showLesson('functions')">Next: Functions →</button>
+        </div>
+
+        <div id="functions" class="lesson-section">
+            <h2 class="lesson-title">⚙️ Functions</h2>
+            <p class="description">
+                Functions are reusable blocks of code that perform specific tasks.
+            </p>
+
+            <h3 class="lesson-subtitle">Defining and Calling Functions</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># Simple function
+def greet(name):
+    return f"Hello, {name}!"
+
+# Call the function
+print(greet("Alice"))  # Hello, Alice!
+
+# Function with multiple parameters
+def add(a, b):
+    return a + b
+
+result = add(5, 3)
+print(result)  # 8
+
+# Function with default parameters
+def introduce(name, age=25):
+    return f"{name} is {age} years old"
+
+print(introduce("Bob"))        # Bob is 25 years old
+print(introduce("Charlie", 30))  # Charlie is 30 years old</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">More Function Examples</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># Function with no return value
+def print_separator():
+    print("-" * 20)
+
+print_separator()
+
+# Function with multiple return values
+def get_coordinates():
+    return 10, 20
+
+x, y = get_coordinates()
+print(f"X: {x}, Y: {y}")
+
+# *args for variable number of arguments
+def add_all(*numbers):
+    return sum(numbers)
+
+print(add_all(1, 2, 3))        # 6
+print(add_all(1, 2, 3, 4, 5))  # 15
+
+# **kwargs for keyword arguments
+def print_info(**info):
+    for key, value in info.items():
+        print(f"{key}: {value}")
+
+print_info(name="Alice", age=25, city="NYC")</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Lambda Functions</h3>
+            <div class="code-block">
+                <pre><code class="language-python"># Lambda: small anonymous functions
+square = lambda x: x ** 2
+print(square(5))  # 25
+
+# Using lambda with map
+numbers = [1, 2, 3, 4, 5]
+squared = map(lambda x: x ** 2, numbers)
+print(list(squared))  # [1, 4, 9, 16, 25]
+
+# Using lambda with filter
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+evens = filter(lambda x: x % 2 == 0, numbers)
+print(list(evens))  # [2, 4, 6, 8, 10]</code></pre>
+            </div>
+
+            <div class="tip-block">
+                <strong>💡 Best Practices:</strong>
+                <ul style="margin-top: 10px;">
+                    <li>Function names should be descriptive</li>
+                    <li>Keep functions focused on one task</li>
+                    <li>Use docstrings to document functions</li>
+                    <li>Place return statements at the end</li>
+                </ul>
+            </div>
+
+            <button class="btn-complete" onclick="markAsComplete(3)">🎉 Complete Python Masterclass</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+            authDomain: "learnhub-4e07c.firebaseapp.com",
+            databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "learnhub-4e07c",
+            storageBucket: "learnhub-4e07c.firebasestorage.app",
+            messagingSenderId: "561780501823",
+            appId: "1:561780501823:web:b064c375c17ca618ee378a"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function showLesson(lessonId) {
+            document.querySelectorAll('.lesson-section').forEach(lesson => {
+                lesson.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(lessonId).classList.add('active');
+            if(event) event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function markAsComplete(courseId) {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+                .then(() => {
+                    alert("Python progress saved! Congratulations on completing the course.");
+                    window.location.href = 'dashboard-firebase.html';
+                })
+                .catch((error) => {
+                    console.error("Error saving progress: ", error);
+                    alert("Error saving progress. Please try again.");
+                });
+            } else {
+                alert("Please log in to save your progress.");
+            }
+        }
+
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Basics - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: #f5576c;
+        }
+
+        .back-btn {
+            background: #f5576c;
+            color: white;
+            padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;
+        }
+
+        .back-btn:hover {
+            background: #d63447;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lesson-section {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-section.active {
+            display: block;
+        }
+
+        .lesson-title {
+            color: #f5576c;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #f5576c;
+            padding-bottom: 0.5rem;
+        }
+
+        .lesson-subtitle {
+            color: #333;
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .syntax-table th {
+            background: #f5576c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .syntax-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .syntax-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .example-block {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .tip-block {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            border-color: #f5576c;
+            color: #f5576c;
+        }
+
+        .nav-btn.active {
+            background: #f5576c;
+            color: white;
+            border-color: #f5576c;
+        }
+
+        .button {
+            display: inline-block;
+            background: #f5576c;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            margin-right: 1rem;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #d63447;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .lesson-section {
+                padding: 1.5rem;
+            }
+
+            .code-block {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>☕ Java Basics</h1>
+            <button class="back-btn" onclick="window.location.href='dashboard-firebase.html'">← Back to Dashboard</button>
+        </div>
+
+        <div class="header">
+            <h1>Java Programming Fundamentals</h1>
+            <p>Learn object-oriented programming with Java</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="showLesson('basics')">Java Basics</button>
+            <button class="nav-btn" onclick="showLesson('variables')">Variables & Types</button>
+            <button class="nav-btn" onclick="showLesson('oop')">OOP Concepts</button>
+            <button class="nav-btn" onclick="showLesson('methods')">Methods</button>
+        </div>
+
+        <div id="basics" class="lesson-section active">
+            <h2 class="lesson-title">☕ Java Basics</h2>
+            <p class="description">
+                Java is a powerful, object-oriented programming language. It follows the principle "Write Once, Run Anywhere" (WORA), making it ideal for cross-platform development.
+            </p>
+
+            <h3 class="lesson-subtitle">What is Java?</h3>
+            <p class="description">
+                Java is compiled to bytecode that runs on the Java Virtual Machine (JVM), not on the operating system directly. This makes Java programs portable across different operating systems.
+            </p>
+
+            <h3 class="lesson-subtitle">Your First Java Program</h3>
+            <div class="code-block">
+                <pre><code class="language-java">public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+            </div>
+
+            <div class="example-block">
+                <strong>Breaking it down:</strong>
+                <ul style="margin-top: 10px;">
+                    <li><code>public class HelloWorld</code> - Class declaration (must match filename)</li>
+                    <li><code>public static void main</code> - Main method (entry point)</li>
+                    <li><code>String[] args</code> - Command line arguments</li>
+                    <li><code>System.out.println()</code> - Print to console</li>
+                </ul>
+            </div>
+
+            <h3 class="lesson-subtitle">How to Run Java Programs</h3>
+            <div class="code-block">
+                <pre><code class="language-bash">// Compile the Java file
+javac HelloWorld.java
+
+// Run the compiled program
+java HelloWorld
+
+// Output: Hello, World!</code></pre>
+            </div>
+
+            <div class="tip-block">
+                <strong>💡 Key Point:</strong> Java is case-sensitive! <code>System</code> is different from <code>system</code>.
+            </div>
+
+            <button class="button" onclick="showLesson('variables')">Next: Variables & Types →</button>
+        </div>
+
+        <div id="variables" class="lesson-section">
+            <h2 class="lesson-title">📦 Variables & Data Types</h2>
+            <p class="description">
+                Variables store data values. Java is a strongly-typed language, meaning every variable must have a declared data type.
+            </p>
+
+            <h3 class="lesson-subtitle">Primitive Data Types</h3>
+            <table class="syntax-table">
+                <tr>
+                    <th>Type</th>
+                    <th>Size</th>
+                    <th>Range</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>byte</code></td>
+                    <td>1 byte</td>
+                    <td>-128 to 127</td>
+                    <td><code>byte b = 100;</code></td>
+                </tr>
+                <tr>
+                    <td><code>int</code></td>
+                    <td>4 bytes</td>
+                    <td>-2.1B to 2.1B</td>
+                    <td><code>int age = 25;</code></td>
+                </tr>
+                <tr>
+                    <td><code>long</code></td>
+                    <td>8 bytes</td>
+                    <td>Very large numbers</td>
+                    <td><code>long id = 123456789L;</code></td>
+                </tr>
+                <tr>
+                    <td><code>float</code></td>
+                    <td>4 bytes</td>
+                    <td>Decimal numbers</td>
+                    <td><code>float price = 19.99f;</code></td>
+                </tr>
+                <tr>
+                    <td><code>double</code></td>
+                    <td>8 bytes</td>
+                    <td>Decimal numbers (precise)</td>
+                    <td><code>double salary = 50000.50;</code></td>
+                </tr>
+                <tr>
+                    <td><code>boolean</code></td>
+                    <td>1 bit</td>
+                    <td>true or false</td>
+                    <td><code>boolean isActive = true;</code></td>
+                </tr>
+                <tr>
+                    <td><code>char</code></td>
+                    <td>2 bytes</td>
+                    <td>Single character</td>
+                    <td><code>char grade = 'A';</code></td>
+                </tr>
+                <tr>
+                    <td><code>String</code></td>
+                    <td>Variable</td>
+                    <td>Text</td>
+                    <td><code>String name = "John";</code></td>
+                </tr>
+            </table>
+
+            <h3 class="lesson-subtitle">Declaring and Using Variables</h3>
+            <div class="code-block">
+                <pre><code class="language-java">// Variable declaration and initialization
+int count = 10;
+double price = 29.99;
+String name = "Alice";
+boolean isStudent = true;
+
+// Using variables
+System.out.println("Name: " + name);
+System.out.println("Price: $" + price);
+System.out.println("Count: " + count);
+
+// Changing variables
+count = count + 5;  // count is now 15
+price = 39.99;      // updated price</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Type Conversion</h3>
+            <div class="code-block">
+                <pre><code class="language-java">// Implicit conversion (automatic)
+int num = 42;
+double decimal = num;  // int → double (safe)
+System.out.println(decimal);  // 42.0
+
+// Explicit conversion (casting)
+double pi = 3.14159;
+int rounded = (int) pi;  // double → int
+System.out.println(rounded);  // 3
+
+// String to number
+String str = "123";
+int value = Integer.parseInt(str);  // "123" → 123
+double d = Double.parseDouble("3.14");  // "3.14" → 3.14</code></pre>
+            </div>
+
+            <div class="tip-block">
+                <strong>💡 Pro Tip:</strong> Use <code>final</code> keyword to create constants that cannot be changed.
+            </div>
+
+            <button class="button" onclick="showLesson('oop')">Next: OOP Concepts →</button>
+        </div>
+
+        <div id="oop" class="lesson-section">
+            <h2 class="lesson-title">🏗️ Object-Oriented Programming</h2>
+            <p class="description">
+                Java is built on OOP principles. Classes are blueprints for creating objects, and objects contain data (properties) and behavior (methods).
+            </p>
+
+            <h3 class="lesson-subtitle">Classes and Objects</h3>
+            <div class="code-block">
+                <pre><code class="language-java">// Define a class
+public class Car {
+    // Properties (attributes)
+    String color;
+    String brand;
+    int year;
+    
+    // Constructor
+    public Car(String color, String brand, int year) {
+        this.color = color;
+        this.brand = brand;
+        this.year = year;
+    }
+    
+    // Methods
+    public void displayInfo() {
+        System.out.println("Car: " + brand + " " + color + " (" + year + ")");
+    }
+}
+
+// Using the class
+public class Main {
+    public static void main(String[] args) {
+        // Create objects
+        Car car1 = new Car("Red", "Ferrari", 2023);
+        Car car2 = new Car("Blue", "Tesla", 2024);
+        
+        // Use methods
+        car1.displayInfo();  // Output: Car: Ferrari Red (2023)
+        car2.displayInfo();  // Output: Car: Tesla Blue (2024)
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Encapsulation - Getters & Setters</h3>
+            <div class="code-block">
+                <pre><code class="language-java">public class Student {
+    // Private properties
+    private String name;
+    private int age;
+    private double gpa;
+    
+    // Getter methods
+    public String getName() {
+        return name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    // Setter methods
+    public void setName(String name) {
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        }
+    }
+    
+    public void setAge(int age) {
+        if (age > 0 && age < 120) {
+            this.age = age;
+        }
+    }
+    
+    public void setGPA(double gpa) {
+        if (gpa >= 0.0 && gpa <= 4.0) {
+            this.gpa = gpa;
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Inheritance</h3>
+            <div class="code-block">
+                <pre><code class="language-java">// Parent class
+public class Animal {
+    protected String name;
+    
+    public Animal(String name) {
+        this.name = name;
+    }
+    
+    public void makeSound() {
+        System.out.println("Some generic animal sound");
+    }
+}
+
+// Child class
+public class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+    
+    @Override
+    public void makeSound() {
+        System.out.println(name + " says: Woof! Woof!");
+    }
+}
+
+// Using inheritance
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog("Buddy");
+        dog.makeSound();  // Output: Buddy says: Woof! Woof!
+    }
+}</code></pre>
+            </div>
+
+            <button class="button" onclick="showLesson('methods')">Next: Methods →</button>
+        </div>
+
+        <div id="methods" class="lesson-section">
+            <h2 class="lesson-title">⚙️ Methods</h2>
+            <p class="description">
+                Methods are functions that belong to a class. They perform specific tasks and can return values.
+            </p>
+
+            <h3 class="lesson-subtitle">Method Syntax</h3>
+            <div class="code-block">
+                <pre><code class="language-java">// Method structure
+public returnType methodName(parameterType parameter) {
+    // Method body
+    return value;
+}
+
+// Example
+public int add(int a, int b) {
+    int sum = a + b;
+    return sum;
+}</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Different Types of Methods</h3>
+            <div class="code-block">
+                <pre><code class="language-java">public class Calculator {
+    // Method with parameters and return value
+    public int multiply(int x, int y) {
+        return x * y;
+    }
+    
+    // Method with no parameters and no return value
+    public void printMessage() {
+        System.out.println("Hello from method!");
+    }
+    
+    // Method with multiple parameters
+    public double calculateAverage(double a, double b, double c) {
+        return (a + b + c) / 3;
+    }
+    
+    // Method with no parameters but return value
+    public String getCurrentTime() {
+        return java.time.LocalTime.now().toString();
+    }
+}
+
+// Using the methods
+public class Main {
+    public static void main(String[] args) {
+        Calculator calc = new Calculator();
+        
+        System.out.println("5 × 3 = " + calc.multiply(5, 3));
+        calc.printMessage();
+        System.out.println("Average: " + calc.calculateAverage(80, 85, 90));
+        System.out.println("Time: " + calc.getCurrentTime());
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">Method Overloading</h3>
+            <div class="code-block">
+                <pre><code class="language-java">// Same method name, different parameters
+public class MathOperations {
+    // Method 1: Adds two integers
+    public int add(int a, int b) {
+        return a + b;
+    }
+    
+    // Method 2: Adds three integers
+    public int add(int a, int b, int c) {
+        return a + b + c;
+    }
+    
+    // Method 3: Adds two doubles
+    public double add(double a, double b) {
+        return a + b;
+    }
+    
+    // Method 4: Concatenates strings
+    public String add(String a, String b) {
+        return a + b;
+    }
+}
+
+// Using overloaded methods
+MathOperations math = new MathOperations();
+System.out.println(math.add(5, 10));           // 15
+System.out.println(math.add(5, 10, 15));       // 30
+System.out.println(math.add(3.5, 2.5));        // 6.0
+System.out.println(math.add("Hello", "World")); // HelloWorld</code></pre>
+            </div>
+
+            <div class="tip-block">
+                <strong>💡 Key Points:</strong>
+                <ul style="margin-top: 10px;">
+                    <li>Use <code>void</code> when method doesn't return anything</li>
+                    <li>Method names should describe what they do</li>
+                    <li>Methods can be reused multiple times</li>
+                    <li>Overloading lets you use same method name with different parameters</li>
+                </ul>
+            </div>
+
+            <button class="btn-complete" onclick="markAsComplete(2)">🎉 Complete Java Basics Course</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+            authDomain: "learnhub-4e07c.firebaseapp.com",
+            databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "learnhub-4e07c",
+            storageBucket: "learnhub-4e07c.firebasestorage.app",
+            messagingSenderId: "561780501823",
+            appId: "1:561780501823:web:b064c375c17ca618ee378a"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function showLesson(lessonId) {
+            document.querySelectorAll('.lesson-section').forEach(lesson => {
+                lesson.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(lessonId).classList.add('active');
+            if(event) event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function markAsComplete(courseId) {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+                .then(() => {
+                    alert("Java progress saved! Congratulations on completing the course.");
+                    window.location.href = 'dashboard-firebase.html';
+                })
+                .catch((error) => {
+                    console.error("Error saving progress: ", error);
+                    alert("Error saving progress. Please try again.");
+                });
+            } else {
+                alert("Please log in to save your progress.");
+            }
+        }
+
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

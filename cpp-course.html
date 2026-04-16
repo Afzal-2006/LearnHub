@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced C++ Masterclass - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root { --cpp-pink: #fa709a; --cpp-yellow: #fee140; --dark: #2d3436; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #fdfcfb; padding: 20px; line-height: 1.8; }
+        .container { max-width: 1100px; margin: 0 auto; background: white; padding: 50px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 3rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; }
+        .nav-btn { padding: 12px 24px; background: white; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin: 5px; }
+        .nav-btn.active { background: #fa709a; color: white; border-color: #fa709a; }
+        .lesson-card { display: none; animation: slideIn 0.5s ease; }
+        .lesson-card.active { display: block; }
+        h2 { color: #fa709a; font-size: 2.2rem; margin-bottom: 20px; border-left: 6px solid #fa709a; padding-left: 20px; }
+        .code-block { background: #2d2d2d; padding: 25px; border-radius: 10px; margin: 25px 0; border: 1px solid #444; }
+        .syntax-table { width: 100%; border-collapse: collapse; margin: 25px 0; }
+        .syntax-table th, .syntax-table td { border: 1px solid #eee; padding: 15px; text-align: left; }
+        .syntax-table th { background: #fff5f8; color: #fa709a; }
+        .tip-block { background: #fff9db; border-left: 5px solid #fcc419; padding: 20px; margin: 25px 0; }
+        .btn-complete { background: #28a745; color: white; padding: 1.5rem; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.3rem; margin-top: 40px; box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4); }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button onclick="window.location.href='dashboard-firebase.html'" style="float:left; background:rgba(255,255,255,0.3); border:none; color:white; padding:10px 20px; border-radius:8px; cursor:pointer;">← Dashboard</button>
+            <h1>Advanced C++ Masterclass</h1>
+            <p>Object-Oriented Programming & High-Performance Data Structures</p>
+        </div>
+
+        <div style="text-align:center; margin-bottom: 30px;">
+            <button class="nav-btn active" onclick="showTab('oop')">1. Classes & Encapsulation</button>
+            <button class="nav-btn" onclick="showTab('inheritance')">2. Inheritance & Modifiers</button>
+            <button class="nav-btn" onclick="showTab('poly')">3. Polymorphism & Virtuals</button>
+            <button class="nav-btn" onclick="showTab('stl')">4. STL Power</button>
+        </div>
+
+        <div id="oop" class="lesson-card active">
+            <h2>1. Classes and Encapsulation</h2>
+            <p>C++ is C "with Classes". Encapsulation is the practice of bundling data and the methods that act on that data into a single unit (Class) and hiding the implementation details from the outside world.</p>
+            
+            <div class="code-block"><pre><code class="language-cpp">class Employee {
+private:
+    double salary;  // Data Hiding (Private)
+
+public:
+    string name;
+    
+    // Setter
+    void setSalary(double s) {
+        if(s > 0) salary = s;
+    }
+    
+    // Getter
+    double getSalary() {
+        return salary;
+    }
+};</code></pre></div>
+            <button class="nav-btn" style="background:#fa709a; color:white" onclick="showTab('inheritance')">Next: Inheritance →</button>
+        </div>
+
+        <div id="inheritance" class="lesson-card">
+            <h2>2. Inheritance & Access Control</h2>
+            <p>Inheritance allows a "Child" class to inherit attributes and methods from a "Parent" class, promoting code reusability.</p>
+            
+            <table class="syntax-table">
+                <tr><th>Modifier</th><th>Within Class</th><th>Derived (Child) Class</th><th>Outside Class</th></tr>
+                <tr><td><code>public</code></td><td>✅ Yes</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+                <tr><td><code>protected</code></td><td>✅ Yes</td><td>✅ Yes</td><td>❌ No</td></tr>
+                <tr><td><code>private</code></td><td>✅ Yes</td><td>❌ No</td><td>❌ No</td></tr>
+            </table>
+
+            <div class="code-block"><pre><code class="language-cpp">class Vehicle {
+public:
+    string brand = "Ford";
+    void honk() { cout << "Tuut, tuut!" << endl; }
+};
+
+class Car : public Vehicle {
+public:
+    string model = "Mustang";
+};</code></pre></div>
+            <button class="nav-btn" style="background:#fa709a; color:white" onclick="showTab('poly')">Next: Polymorphism →</button>
+        </div>
+
+        <div id="poly" class="lesson-card">
+            <h2>3. Polymorphism & Virtual Functions</h2>
+            <p>Polymorphism means "many forms". It allows objects of different classes to be treated as objects of a common base class through <strong>Virtual Functions</strong>.</p>
+            
+            <div class="tip-block"><strong>💡 Runtime Polymorphism:</strong> Occurs when a child class overrides a parent class method using the <code>virtual</code> keyword.</div>
+
+            <div class="code-block"><pre><code class="language-cpp">class Shape {
+public:
+    virtual void area() = 0; // Pure Virtual Function (Abstract)
+};
+
+class Circle : public Shape {
+public:
+    void area() override { cout << "Area of Circle is PI*r^2" << endl; }
+};
+
+class Square : public Shape {
+public:
+    void area() override { cout << "Area of Square is a^2" << endl; }
+};</code></pre></div>
+            <button class="nav-btn" style="background:#fa709a; color:white" onclick="showTab('stl')">Next: The STL Library →</button>
+        </div>
+
+        <div id="stl" class="lesson-card">
+            <h2>4. The Standard Template Library (STL)</h2>
+            <p>The STL is a powerful set of C++ template classes to provide common data structures like vectors, lists, queues, and stacks.</p>
+            
+            <h3>Core Containers</h3>
+            <table class="syntax-table">
+                <tr><th>Container</th><th>Benefit</th><th>Time Complexity (Access)</th></tr>
+                <tr><td><code>std::vector</code></td><td>Dynamic array, resizes itself</td><td>O(1)</td></tr>
+                <tr><td><code>std::map</code></td><td>Key-Value pairs (Sorted)</td><td>O(log n)</td></tr>
+                <tr><td><code>std::list</code></td><td>Doubly linked list</td><td>O(n)</td></tr>
+            </table>
+
+            <div class="code-block"><pre><code class="language-cpp">#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+vector&lt;int&gt; v = {5, 2, 9, 1};
+v.push_back(10); // Add to end
+sort(v.begin(), v.end()); // Efficient Sorting algorithm
+
+for(int n : v) {
+    cout << n << " ";
+}</code></pre></div>
+            
+            <button class="btn-complete" onclick="markAsComplete(5)">🎉 Complete C++ Masterclass & Save Progress</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+            authDomain: "learnhub-4e07c.firebaseapp.com",
+            databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "learnhub-4e07c",
+            storageBucket: "learnhub-4e07c.firebasestorage.app",
+            messagingSenderId: "561780501823",
+            appId: "1:561780501823:web:b064c375c17ca618ee378a"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function showTab(id) {
+            document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function markAsComplete(id) {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                firebase.database().ref('users/' + user.uid + '/progress/' + id).set(100)
+                .then(() => {
+                    alert("C++ Masterclass Completed! Your 100% progress has been synced to your profile.");
+                    window.location.href = 'dashboard-firebase.html';
+                });
+            }
+        }
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

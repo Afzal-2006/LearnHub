@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DSA Masterclass - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root { --dsa-blue: #4facfe; --bg: #f0f4f8; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 2rem; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .tag { color: var(--dsa-blue); font-weight: bold; }
+        h1 { color: #0072ff; border-bottom: 2px solid #eee; padding-bottom: 10px; margin: 15px 0; }
+        .content-section { display: none; line-height: 1.8; min-height: 400px; }
+        .content-section.active { display: block; animation: slideUp 0.4s; }
+        pre { background: #2d3436; border-radius: 8px; margin: 20px 0; }
+        .controls { margin-top: 30px; display: flex; justify-content: space-between; }
+        .btn { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-next { background: var(--dsa-blue); color: white; }
+        .btn-finish { background: #28a745; color: white; display: none; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <span class="tag" id="pageTag">Module 1 of 8</span>
+    
+    <div class="content-section active" id="page1">
+        <h1>1. Big O Notation</h1>
+        <p>Big O describes the efficiency of an algorithm. It measures how time or space requirements grow as the input size (n) increases.</p>
+        <ul>
+            <li><strong>O(1):</strong> Constant time (Fastest)</li>
+            <li><strong>O(log n):</strong> Logarithmic time (Binary Search)</li>
+            <li><strong>O(n):</strong> Linear time (Loops)</li>
+            <li><strong>O(n²):</strong> Quadratic time (Nested loops)</li>
+        </ul>
+    </div>
+
+    <div class="content-section" id="page2">
+        <h1>2. Array Logic</h1>
+        <p>Arrays are stored in <strong>contiguous memory</strong>. This makes accessing an element by index extremely fast: <code>O(1)</code>.</p>
+        <p>However, inserting or deleting at the start of an array is <code>O(n)</code> because every other element must be shifted.</p>
+    </div>
+
+    <div class="content-section" id="page3">
+        <h1>3. Linked Lists</h1>
+        <p>Unlike arrays, Linked Lists are nodes scattered in memory, connected by pointers.</p>
+        <pre><code class="language-javascript">class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}</code></pre>
+        <p>Benefit: Fast insertion/deletion at any point if you have the pointer.</p>
+    </div>
+
+    <div class="content-section" id="page4">
+        <h1>4. Stacks (LIFO)</h1>
+        <p>Stacks follow <strong>Last-In, First-Out</strong>. Common operations are <code>push()</code> and <code>pop()</code>.</p>
+        <p>Used in: Undo buttons, function calls (the "Call Stack"), and reversing data.</p>
+    </div>
+
+    <div class="content-section" id="page5">
+        <h1>5. Queues (FIFO)</h1>
+        <p>Queues follow <strong>First-In, First-Out</strong>. Common operations are <code>enqueue()</code> and <code>dequeue()</code>.</p>
+        <p>Used in: Printer queues, task scheduling, and Breadth-First Search.</p>
+    </div>
+
+    <div class="content-section" id="page6">
+        <h1>6. Hash Tables</h1>
+        <p>A Hash Table stores key-value pairs. It uses a <strong>Hash Function</strong> to turn a key into an index in an array.</p>
+        <p>Average lookup time is <code>O(1)</code>, making it one of the most powerful structures in programming.</p>
+    </div>
+
+    <div class="content-section" id="page7">
+        <h1>7. Binary Search Trees (BST)</h1>
+        <p>A Tree where each node has at most two children. For any node, left children are smaller, and right children are larger.</p>
+        <p>Search complexity: <code>O(log n)</code>.</p>
+    </div>
+
+    <div class="content-section" id="page8">
+        <h1>8. Basic Sorting</h1>
+        <p>Sorting is the process of arranging data in order. <strong>Bubble Sort</strong> is O(n²), while <strong>Quick Sort</strong> is O(n log n).</p>
+        <p>You have now completed the DSA core concepts!</p>
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
+        <button class="btn btn-next" id="nextBtn" onclick="changePage(1)">Next Module</button>
+        <button class="btn btn-finish" id="finishBtn" onclick="markAsComplete(7)">🎉 Claim 100% Progress</button>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+        authDomain: "learnhub-4e07c.firebaseapp.com",
+        databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "learnhub-4e07c",
+        storageBucket: "learnhub-4e07c.firebasestorage.app",
+        messagingSenderId: "561780501823",
+        appId: "1:561780501823:web:b064c375c17ca618ee378a"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    let curr = 1;
+    function changePage(s){
+        document.getElementById(`page${curr}`).classList.remove('active');
+        curr += s;
+        document.getElementById(`page${curr}`).classList.add('active');
+        document.getElementById('pageTag').innerText = `Module ${curr} of 8`;
+        document.getElementById('prevBtn').disabled = (curr === 1);
+        document.getElementById('nextBtn').style.display = (curr === 8) ? 'none' : 'block';
+        document.getElementById('finishBtn').style.display = (curr === 8) ? 'block' : 'none';
+        window.scrollTo(0,0);
+    }
+
+    function markAsComplete(id) {
+        const user = firebase.auth().currentUser;
+        if(user) {
+            firebase.database().ref('users/' + user.uid + '/progress/' + id).set(100)
+            .then(() => { alert("DSA Progress Saved!"); window.location.href='dashboard-firebase.html'; });
+        }
+    }
+    hljs.highlightAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming Masterclass - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root { --c-green: #43e97b; --dark: #2d3436; --text: #333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; color: var(--text); line-height: 1.8; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; background: white; padding: 50px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 3rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; }
+        .nav-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .nav-btn { padding: 12px 20px; background: white; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .nav-btn.active { background: var(--c-green); color: white; border-color: var(--c-green); }
+        .lesson-card { display: none; animation: fadeIn 0.5s ease; }
+        .lesson-card.active { display: block; }
+        h2 { color: #27ae60; font-size: 2.2rem; margin-bottom: 20px; border-bottom: 3px solid #eee; padding-bottom: 10px; }
+        h3 { margin-top: 30px; color: #2d3436; font-size: 1.5rem; }
+        .code-block { background: #2d2d2d; padding: 25px; border-radius: 10px; margin: 25px 0; overflow-x: auto; border-left: 5px solid var(--c-green); }
+        .syntax-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: #fff; }
+        .syntax-table th, .syntax-table td { border: 1px solid #dfe6e9; padding: 15px; text-align: left; }
+        .syntax-table th { background: #f1f2f6; color: #27ae60; }
+        .tip-block { background: #e8f5e9; border-left: 5px solid #2ecc71; padding: 20px; margin: 25px 0; border-radius: 5px; }
+        .btn-complete { background: #28a745; color: white; padding: 1.5rem; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.3rem; margin-top: 40px; transition: 0.3s; box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3); }
+        .btn-complete:hover { background: #218838; transform: translateY(-3px); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button onclick="window.location.href='dashboard-firebase.html'" style="float:left; background:rgba(255,255,255,0.3); border:none; color:white; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;">← Dashboard</button>
+            <h1>C Programming Masterclass</h1>
+            <p>From System Fundamentals to Manual Memory Management</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="showTab('intro')">1. Compiler & Setup</button>
+            <button class="nav-btn" onclick="showTab('types')">2. Data Types & Logic</button>
+            <button class="nav-btn" onclick="showTab('pointers')">3. Pointers & RAM</button>
+            <button class="nav-btn" onclick="showTab('io')">4. File I/O & Structs</button>
+        </div>
+
+        <div id="intro" class="lesson-card active">
+            <h2>1. The Life of a C Program</h2>
+            <p>C is a compiled language. Unlike Python or JS, your code is converted directly into machine instructions that the CPU understands.</p>
+            
+            <h3>The 4 Stages of Compilation</h3>
+            <table class="syntax-table">
+                <tr><th>Stage</th><th>Process</th><th>Output File</th></tr>
+                <tr><td><strong>Preprocessing</strong></td><td>Removes comments, expands macros (<code>#define</code>), and includes headers.</td><td><code>.i</code> file</td></tr>
+                <tr><td><strong>Compilation</strong></td><td>Translates code into Assembly instructions for the specific CPU.</td><td><code>.s</code> file</td></tr>
+                <tr><td><strong>Assembly</strong></td><td>Converts assembly code into binary Machine Code (Object code).</td><td><code>.o</code> or <code>.obj</code></td></tr>
+                <tr><td><strong>Linking</strong></td><td>Combines object files with system libraries (like <code>stdio.h</code>).</td><td><code>.exe</code> or <code>a.out</code></td></tr>
+            </table>
+
+            <h3>The Structure of a C File</h3>
+            <div class="code-block"><pre><code class="language-c">#include &lt;stdio.h&gt;  // Preprocessor directive
+
+int main() {         // Entry point of the program
+    printf("Hardware Control starts here!\n");
+    return 0;        // 0 means success
+}</code></pre></div>
+            <button class="nav-btn" style="background:var(--c-green); color:white" onclick="showTab('types')">Next: Logic & Control →</button>
+        </div>
+
+        <div id="types" class="lesson-card">
+            <h2>2. Deep Dive: Memory and Control</h2>
+            <p>In C, every byte matters. You must choose the right data type to save memory and ensure performance.</p>
+            
+            <h3>Primary Data Types</h3>
+            <table class="syntax-table">
+                <tr><th>Type</th><th>Size (approx)</th><th>Format Specifier</th><th>Usage</th></tr>
+                <tr><td><code>int</code></td><td>4 Bytes</td><td><code>%d</code></td><td>Whole numbers</td></tr>
+                <tr><td><code>float</code></td><td>4 Bytes</td><td><code>%f</code></td><td>Decimal (6 digits)</td></tr>
+                <tr><td><code>double</code></td><td>8 Bytes</td><td><code>%lf</code></td><td>High precision decimal</td></tr>
+                <tr><td><code>char</code></td><td>1 Byte</td><td><code>%c</code></td><td>Single character/ASCII</td></tr>
+            </table>
+
+            <h3>Complex Logic and Iteration</h3>
+            <div class="code-block"><pre><code class="language-c">int age = 20;
+if (age >= 18 && age < 60) {
+    printf("Adult Worker\n");
+}
+
+// Optimized For-Loop
+for (int i = 0; i < 100; i++) {
+    if (i % 2 == 0) continue; // Skip evens
+    printf("Odd: %d ", i);
+}</code></pre></div>
+            <button class="nav-btn" style="background:var(--c-green); color:white" onclick="showTab('pointers')">Next: Pointers Masterclass →</button>
+        </div>
+
+        <div id="pointers" class="lesson-card">
+            <h2>3. Mastering Pointers (The Heart of C)</h2>
+            <p>Pointers are variables that store <strong>Memory Addresses</strong>. This allows you to manipulate data directly in the RAM without creating copies.</p>
+            
+            <div class="tip-block">
+                <strong>💡 Why use Pointers?</strong>
+                <ul>
+                    <li>Dynamic Memory Allocation (Heap)</li>
+                    <li>Efficiently passing large arrays to functions</li>
+                    <li>Building data structures like Linked Lists and Trees</li>
+                </ul>
+            </div>
+
+            <div class="code-block"><pre><code class="language-c">int x = 10;
+int *p = &x;  // Pointer 'p' stores address of 'x'
+
+printf("Address of x: %p\n", p);
+printf("Value at that address: %d\n", *p); // Dereferencing
+
+// Manual Memory Allocation
+int *arr = (int*)malloc(5 * sizeof(int)); // Ask OS for 20 bytes
+if(arr == NULL) return 1; // Check if allocation failed
+free(arr); // ALWAYS clean up your memory!</code></pre></div>
+            <button class="nav-btn" style="background:var(--c-green); color:white" onclick="showTab('io')">Next: Structs & Files →</button>
+        </div>
+
+        <div id="io" class="lesson-card">
+            <h2>4. Structures and Persistent Storage</h2>
+            <p><strong>Structs</strong> allow you to group different variables under one name. <strong>File I/O</strong> lets you save your data permanently to the hard drive.</p>
+            
+            <h3>Complex Data Grouping</h3>
+            <div class="code-block"><pre><code class="language-c">struct Student {
+    char name[50];
+    int roll;
+    float gpa;
+};
+
+struct Student s1 = {"Moin", 101, 3.8};
+printf("Student %s has GPA %.2f", s1.name, s1.gpa);</code></pre></div>
+
+            <h3>Reading and Writing Files</h3>
+            <div class="code-block"><pre><code class="language-c">FILE *fptr = fopen("database.txt", "w");
+if (fptr != NULL) {
+    fprintf(fptr, "C Programming is the foundation.");
+    fclose(fptr); // Close the stream
+}</code></pre></div>
+            
+            <button class="btn-complete" onclick="markAsComplete(4)">🎉 Complete C Programming Masterclass & Sync Progress</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+            authDomain: "learnhub-4e07c.firebaseapp.com",
+            databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "learnhub-4e07c",
+            storageBucket: "learnhub-4e07c.firebasestorage.app",
+            messagingSenderId: "561780501823",
+            appId: "1:561780501823:web:b064c375c17ca618ee378a"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function showTab(id) {
+            document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function markAsComplete(id) {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                firebase.database().ref('users/' + user.uid + '/progress/' + id).set(100)
+                .then(() => {
+                    alert("C Masterclass 100% Complete! Your dashboard has been updated.");
+                    window.location.href = 'dashboard-firebase.html';
+                });
+            } else { alert("Error: User session not found."); }
+        }
+        hljs.highlightAll();
+    </script>
+</body>
+</html>
