@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,5 +166,757 @@ document.querySelector('#parent-list').addEventListener('click', (e) => {
         }
         hljs.highlightAll();
     </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack Web Development - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --bg: #f8f9fa;
+            --text: #2d3436;
+            --card: #ffffff;
+            --muted: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-btn {
+            float: left;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .lesson-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #444;
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--muted);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .syntax-table th,
+        .syntax-table td {
+            border: 1px solid #eee;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .syntax-table th {
+            background: #f1f2f6;
+            color: var(--primary);
+        }
+
+        .tip-block {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .info-block {
+            background: #eef5ff;
+            border-left: 5px solid #4f8ef7;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .quiz-box {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .quiz-box h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question p {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .quiz-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .quiz-btn:hover {
+            background: #218838;
+        }
+
+        .quiz-result {
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        .saved-score {
+            margin-top: 12px;
+            color: #1f6f33;
+            font-weight: 700;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.15rem;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .page-btn.secondary {
+            background: #6c757d;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        ul {
+            margin: 10px 0 15px 25px;
+            color: var(--muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .progress-status {
+            margin-top: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .lesson-card {
+                padding: 22px;
+            }
+
+            .header {
+                padding: 2rem 1.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <button onclick="window.location.href='dashboard-firebase.html'" class="back-btn">← Dashboard</button>
+        <h1>Web Development Masterclass</h1>
+        <p>From HTML structure to styling systems, JavaScript logic, and dynamic DOM engineering</p>
+        <p id="progressText" class="progress-status">Progress: 0%</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showTab('html', 1, this)">HTML Foundations</button>
+        <button class="nav-btn" onclick="showTab('css', 2, this)">Advanced CSS</button>
+        <button class="nav-btn" onclick="showTab('js', 3, this)">JavaScript</button>
+        <button class="nav-btn" onclick="showTab('dom', 4, this)">DOM & Events</button>
+        <button class="nav-btn" onclick="showTab('responsive', 5, this)">Responsive Design</button>
+        <button class="nav-btn" onclick="showTab('project', 6, this)">Project Thinking</button>
+    </div>
+
+    <div id="html" class="lesson-card active">
+        <h2>1. HTML Foundations and Semantic Page Architecture</h2>
+
+        <p>HTML is the structural language of the web. It does not exist mainly to make content look nice. Its primary role is to define the meaning and hierarchy of content so browsers, search engines, and assistive technologies understand what each part of the page represents.</p>
+
+        <p>Strong HTML leads to cleaner CSS, easier JavaScript, better accessibility, and more maintainable projects. A good frontend developer thinks about structure before styling.</p>
+
+        <h3>Basic Document Structure</h3>
+        <p>Every HTML page begins with a doctype, followed by root structure and metadata.</p>
+
+        <div class="code-block"><pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+
+        <h3>Semantic Tags</h3>
+        <table class="syntax-table">
+            <tr><th>Tag</th><th>Purpose</th><th>Typical Use</th></tr>
+            <tr><td><code>&lt;header&gt;</code></td><td>Introduces page/section</td><td>Logo, title, nav</td></tr>
+            <tr><td><code>&lt;nav&gt;</code></td><td>Navigation block</td><td>Menus and links</td></tr>
+            <tr><td><code>&lt;main&gt;</code></td><td>Main content</td><td>Main lesson or article</td></tr>
+            <tr><td><code>&lt;section&gt;</code></td><td>Groups related content</td><td>Units and topic blocks</td></tr>
+            <tr><td><code>&lt;article&gt;</code></td><td>Independent content unit</td><td>Blog or card item</td></tr>
+            <tr><td><code>&lt;footer&gt;</code></td><td>Closing content</td><td>Links and copyright</td></tr>
+        </table>
+
+        <h3>Forms and Input Types</h3>
+        <p>Forms are essential for collecting user data. Using correct input types improves browser validation and user experience.</p>
+
+        <div class="code-block"><pre><code class="language-html">&lt;form action="/submit" method="POST"&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input type="email" id="email" required&gt;
+
+  &lt;label for="password"&gt;Password&lt;/label&gt;
+  &lt;input type="password" id="password" minlength="8" required&gt;
+
+  &lt;button type="submit"&gt;Sign Up&lt;/button&gt;
+&lt;/form&gt;</code></pre></div>
+
+        <div class="tip-block">
+            <strong>💡 Best Practice:</strong> Use semantic tags and proper labels so your pages are understandable even before CSS and JavaScript are added.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" disabled>← Previous</button>
+            <button class="page-btn" onclick="goToSection('css', 2)">Next →</button>
+        </div>
+    </div>
+
+    <div id="css" class="lesson-card">
+        <h2>2. Advanced CSS and Modern Layout Systems</h2>
+
+        <p>CSS transforms plain structure into a usable, attractive interface. Professional CSS is about consistency, spacing, hierarchy, and layout behavior—not just colors.</p>
+
+        <h3>The Box Model</h3>
+        <p>Every element has content, padding, border, and margin. Understanding the box model is essential for precise spacing and layout.</p>
+
+        <table class="syntax-table">
+            <tr><th>Layer</th><th>Description</th></tr>
+            <tr><td>Content</td><td>The actual text or media</td></tr>
+            <tr><td>Padding</td><td>Inner space around content</td></tr>
+            <tr><td>Border</td><td>Line around the element</td></tr>
+            <tr><td>Margin</td><td>Outer spacing between elements</td></tr>
+        </table>
+
+        <div class="code-block"><pre><code class="language-css">* {
+  box-sizing: border-box;
+}
+
+.card {
+  width: 300px;
+  padding: 20px;
+  border: 2px solid #ddd;
+  margin: 15px;
+}</code></pre></div>
+
+        <h3>Flexbox</h3>
+        <p>Flexbox is excellent for one-dimensional layout problems like navbars, aligned cards, and button groups.</p>
+
+        <div class="code-block"><pre><code class="language-css">.parent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}</code></pre></div>
+
+        <h3>CSS Grid</h3>
+        <p>Grid is ideal for two-dimensional layouts and dashboard-style interfaces.</p>
+
+        <div class="code-block"><pre><code class="language-css">.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}</code></pre></div>
+
+        <div class="info-block">
+            <strong>Remember:</strong> A clean design usually comes from consistent spacing, readable typography, and predictable layout systems.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('html', 1)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('js', 3)">Next →</button>
+        </div>
+    </div>
+
+    <div id="js" class="lesson-card">
+        <h2>3. JavaScript Logic, ES6+, and Dynamic Behavior</h2>
+
+        <p>JavaScript brings behavior to web pages. It handles user interaction, updates content, communicates with APIs, and controls real-time UI logic.</p>
+
+        <h3>Variables and Scope</h3>
+        <div class="code-block"><pre><code class="language-javascript">const siteName = "LearnHub";
+let enrolledStudents = 0;
+
+function enrollStudent() {
+  enrolledStudents++;
+  console.log(`${siteName}: ${enrolledStudents}`);
+}</code></pre></div>
+
+        <h3>Functions</h3>
+        <p>Functions make code reusable and easier to organize.</p>
+
+        <div class="code-block"><pre><code class="language-javascript">function greetUser(name) {
+  return `Welcome, ${name}!`;
+}
+
+const greetShort = (name) => `Hi, ${name}`;
+</code></pre></div>
+
+        <h3>Arrays and Objects</h3>
+        <div class="code-block"><pre><code class="language-javascript">const courses = ["HTML", "CSS", "JavaScript"];
+
+const user = {
+  name: "Alex",
+  progress: 80,
+  active: true
+};</code></pre></div>
+
+        <h3>Async/Await</h3>
+        <div class="code-block"><pre><code class="language-javascript">async function loadUserData(userId) {
+  try {
+    const response = await fetch(`https://api.site.com/users/${userId}`);
+    const data = await response.json();
+    console.log(data.name);
+  } catch (error) {
+    console.error(error);
+  }
+}</code></pre></div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('css', 2)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('dom', 4)">Next →</button>
+        </div>
+    </div>
+
+    <div id="dom" class="lesson-card">
+        <h2>4. DOM Manipulation and Event Engineering</h2>
+
+        <p>The DOM is the browser’s JavaScript representation of the page. With it, scripts can read, update, remove, or create content dynamically.</p>
+
+        <h3>Selecting Elements</h3>
+        <div class="code-block"><pre><code class="language-javascript">const heading = document.getElementById("title");
+const button = document.querySelector(".btn");</code></pre></div>
+
+        <h3>Changing Content and Classes</h3>
+        <div class="code-block"><pre><code class="language-javascript">heading.textContent = "Updated Course Title";
+button.classList.add("active");</code></pre></div>
+
+        <h3>Events</h3>
+        <div class="code-block"><pre><code class="language-javascript">document.querySelector("#myBtn").addEventListener("click", () => {
+  alert("Button clicked!");
+});</code></pre></div>
+
+        <h3>Event Delegation</h3>
+        <div class="code-block"><pre><code class="language-javascript">document.querySelector("#list").addEventListener("click", (e) => {
+  if (e.target.tagName === "LI") {
+    e.target.classList.toggle("done");
+  }
+});</code></pre></div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('js', 3)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('responsive', 5)">Next →</button>
+        </div>
+    </div>
+
+    <div id="responsive" class="lesson-card">
+        <h2>5. Responsive Design and Device Adaptation</h2>
+
+        <p>A real website must work on mobile, tablet, laptop, and large screens. Responsive design adapts layout and spacing to device constraints.</p>
+
+        <h3>Viewport Tag</h3>
+        <div class="code-block"><pre><code class="language-html">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre></div>
+
+        <h3>Media Queries</h3>
+        <div class="code-block"><pre><code class="language-css">@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    padding: 1.5rem;
+  }
+}</code></pre></div>
+
+        <ul>
+            <li>Use flexible widths instead of fixed layouts.</li>
+            <li>Ensure text remains readable on smaller screens.</li>
+            <li>Use touch-friendly buttons and spacing.</li>
+        </ul>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('dom', 4)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('project', 6)">Next →</button>
+        </div>
+    </div>
+
+    <div id="project" class="lesson-card">
+        <h2>6. Project Thinking, Best Practices, and Final Quiz</h2>
+
+        <p>Professional frontend work is about more than syntax. Strong projects use clear structure, reusable patterns, readable code, and separation of concerns.</p>
+
+        <ul>
+            <li>HTML = structure</li>
+            <li>CSS = presentation</li>
+            <li>JavaScript = behavior</li>
+        </ul>
+
+        <div class="quiz-box">
+            <h3>🧠 Web Development Quiz</h3>
+
+            <div class="quiz-question">
+                <p>1. What does semantic HTML improve?</p>
+                <label><input type="radio" name="q1" value="a"> Only colors</label>
+                <label><input type="radio" name="q1" value="b"> SEO and accessibility</label>
+                <label><input type="radio" name="q1" value="c"> Internet speed</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. Which CSS layout is best for one-dimensional alignment?</p>
+                <label><input type="radio" name="q2" value="a"> Flexbox</label>
+                <label><input type="radio" name="q2" value="b"> Float</label>
+                <label><input type="radio" name="q2" value="c"> Table</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. What does the DOM allow JavaScript to do?</p>
+                <label><input type="radio" name="q3" value="a"> Compile C code</label>
+                <label><input type="radio" name="q3" value="b"> Live-edit the page</label>
+                <label><input type="radio" name="q3" value="c"> Create databases</label>
+            </div>
+
+            <button class="quiz-btn" onclick="checkQuiz()">Submit Quiz</button>
+            <p id="quiz-result" class="quiz-result"></p>
+            <p id="saved-score" class="saved-score"></p>
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('responsive', 5)">← Previous</button>
+            <button class="page-btn" disabled>Next →</button>
+        </div>
+
+        <button class="btn-complete" onclick="markAsComplete(1)">🎉 Complete Web Development & Save Progress</button>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+        authDomain: "learnhub-4e07c.firebaseapp.com",
+        databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "learnhub-4e07c",
+        storageBucket: "learnhub-4e07c.firebasestorage.app",
+        messagingSenderId: "561780501823",
+        appId: "1:561780501823:web:b064c375c17ca618ee378a"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const courseId = 1;
+    const totalSections = 6;
+
+    function updateActiveTabById(id) {
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+        const tabMap = {
+            html: 0,
+            css: 1,
+            js: 2,
+            dom: 3,
+            responsive: 4,
+            project: 5
+        };
+
+        const buttons = document.querySelectorAll('.nav-btn');
+        if (buttons[tabMap[id]]) {
+            buttons[tabMap[id]].classList.add('active');
+        }
+    }
+
+    function saveProgress(sectionNumber) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((sectionNumber / totalSections) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(percent)
+        .then(() => {
+            document.getElementById('progressText').textContent = `Progress: ${percent}%`;
+        })
+        .catch((error) => {
+            console.error("Progress save error:", error);
+        });
+    }
+
+    function loadSavedProgress() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).on('value', (snapshot) => {
+            const progress = snapshot.val() || 0;
+            document.getElementById('progressText').textContent = `Progress: ${progress}%`;
+        });
+    }
+
+    function showTab(id, sectionNumber, btnElement = null) {
+        document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btnElement) {
+            btnElement.classList.add('active');
+        } else {
+            updateActiveTabById(id);
+        }
+
+        saveProgress(sectionNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToSection(id, sectionNumber) {
+        showTab(id, sectionNumber, null);
+    }
+
+    function saveQuizScore(score, total) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((score / total) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).set({
+            score: score,
+            total: total,
+            percent: percent,
+            updatedAt: new Date().toISOString()
+        }).then(() => {
+            document.getElementById('saved-score').textContent = `Saved quiz score: ${score}/${total} (${percent}%)`;
+        }).catch((error) => {
+            console.error("Quiz score save error:", error);
+        });
+    }
+
+    function loadSavedQuizScore() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                document.getElementById('saved-score').textContent = `Saved quiz score: ${data.score}/${data.total} (${data.percent}%)`;
+            }
+        });
+    }
+
+    function checkQuiz() {
+        let score = 0;
+
+        const q1 = document.querySelector('input[name="q1"]:checked');
+        const q2 = document.querySelector('input[name="q2"]:checked');
+        const q3 = document.querySelector('input[name="q3"]:checked');
+
+        if (!q1 || !q2 || !q3) {
+            document.getElementById('quiz-result').textContent = "Please answer all questions.";
+            document.getElementById('quiz-result').style.color = "red";
+            return;
+        }
+
+        if (q1.value === "b") score++;
+        if (q2.value === "a") score++;
+        if (q3.value === "b") score++;
+
+        document.getElementById('quiz-result').textContent = `Your score: ${score}/3`;
+        document.getElementById('quiz-result').style.color = score >= 2 ? "green" : "red";
+
+        saveQuizScore(score, 3);
+    }
+
+    function markAsComplete(courseId) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+            .then(() => {
+                alert("Web Development 100% Complete! Progress synced.");
+                window.location.href = 'dashboard-firebase.html';
+            });
+        } else {
+            alert("Please login first.");
+        }
+    }
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            loadSavedProgress();
+            loadSavedQuizScore();
+        }
+    });
+
+    hljs.highlightAll();
+</script>
 </body>
 </html>

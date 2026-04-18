@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,5 +180,823 @@ if (fptr != NULL) {
         }
         hljs.highlightAll();
     </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming Masterclass - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary: #27ae60;
+            --secondary: #38f9d7;
+            --bg: #f0f2f5;
+            --text: #2d3436;
+            --card: #ffffff;
+            --muted: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(67, 233, 123, 0.28);
+        }
+
+        .back-btn {
+            float: left;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .lesson-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #444;
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--muted);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .syntax-table th,
+        .syntax-table td {
+            border: 1px solid #eee;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .syntax-table th {
+            background: #f1f2f6;
+            color: var(--primary);
+        }
+
+        .tip-block {
+            background: #e8f5e9;
+            border-left: 5px solid #2ecc71;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .info-block {
+            background: #eefaf5;
+            border-left: 5px solid #27ae60;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .quiz-box {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .quiz-box h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question p {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .quiz-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .quiz-btn:hover {
+            background: #218838;
+        }
+
+        .quiz-result {
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        .saved-score {
+            margin-top: 12px;
+            color: #1f6f33;
+            font-weight: 700;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.15rem;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .page-btn.secondary {
+            background: #6c757d;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        ul {
+            margin: 10px 0 15px 25px;
+            color: var(--muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .progress-status {
+            margin-top: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .lesson-card {
+                padding: 22px;
+            }
+
+            .header {
+                padding: 2rem 1.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <button onclick="window.location.href='dashboard-firebase.html'" class="back-btn">← Dashboard</button>
+        <h1>C Programming Masterclass</h1>
+        <p>From compilation and memory basics to pointers, structures, and low-level thinking</p>
+        <p id="progressText" class="progress-status">Progress: 0%</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showTab('intro', 1, this)">Compiler & Setup</button>
+        <button class="nav-btn" onclick="showTab('types', 2, this)">Data Types & Logic</button>
+        <button class="nav-btn" onclick="showTab('pointers', 3, this)">Pointers & RAM</button>
+        <button class="nav-btn" onclick="showTab('memory', 4, this)">Memory & Functions</button>
+        <button class="nav-btn" onclick="showTab('io', 5, this)">Structs & File I/O</button>
+        <button class="nav-btn" onclick="showTab('project', 6, this)">Best Practices & Quiz</button>
+    </div>
+
+    <div id="intro" class="lesson-card active">
+        <h2>1. The Life of a C Program and Compilation Fundamentals</h2>
+
+        <p>C is one of the most important programming languages in computer science because it gives developers direct control over memory, performance, and system-level behavior. Many modern languages were influenced by C, and many operating systems, compilers, embedded systems, and performance-critical tools still depend on it.</p>
+
+        <p>Unlike scripting languages that are executed more directly, C is a compiled language. This means your source code goes through several transformation stages before it becomes an executable program that the CPU can run.</p>
+
+        <h3>The Four Main Stages of Compilation</h3>
+        <table class="syntax-table">
+            <tr>
+                <th>Stage</th>
+                <th>What Happens</th>
+                <th>Output</th>
+            </tr>
+            <tr>
+                <td>Preprocessing</td>
+                <td>Expands macros, removes comments, includes header files</td>
+                <td><code>.i</code></td>
+            </tr>
+            <tr>
+                <td>Compilation</td>
+                <td>Converts source code to assembly</td>
+                <td><code>.s</code></td>
+            </tr>
+            <tr>
+                <td>Assembly</td>
+                <td>Converts assembly into object code</td>
+                <td><code>.o</code></td>
+            </tr>
+            <tr>
+                <td>Linking</td>
+                <td>Combines object code with libraries</td>
+                <td><code>.exe</code> or <code>a.out</code></td>
+            </tr>
+        </table>
+
+        <h3>Your First C Program</h3>
+        <div class="code-block"><pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Hello from C!\n");
+    return 0;
+}</code></pre></div>
+
+        <p>The <code>#include &lt;stdio.h&gt;</code> line tells the compiler to include the standard input/output library. The <code>main()</code> function is the entry point of a C program. The <code>printf()</code> function displays text, and <code>return 0;</code> indicates successful program completion.</p>
+
+        <div class="tip-block">
+            <strong>💡 Important Idea:</strong> C is close to the machine. That is why it is powerful, but it also means you must be more careful than in many higher-level languages.
+        </div>
+
+        <h3>Why C Is Still Relevant</h3>
+        <ul>
+            <li>It is used in operating systems and embedded systems.</li>
+            <li>It teaches memory and hardware awareness.</li>
+            <li>It builds strong programming fundamentals.</li>
+            <li>It helps you understand how higher-level languages work internally.</li>
+        </ul>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" disabled>← Previous</button>
+            <button class="page-btn" onclick="goToSection('types', 2)">Next →</button>
+        </div>
+    </div>
+
+    <div id="types" class="lesson-card">
+        <h2>2. Data Types, Operators, and Program Logic</h2>
+
+        <p>In C, choosing the right data type matters because memory usage and precision are not hidden from you. C gives you fine-grained control, but that control comes with responsibility.</p>
+
+        <h3>Core Primitive Types</h3>
+        <table class="syntax-table">
+            <tr>
+                <th>Type</th>
+                <th>Approx Size</th>
+                <th>Format Specifier</th>
+                <th>Use</th>
+            </tr>
+            <tr>
+                <td><code>int</code></td>
+                <td>4 bytes</td>
+                <td><code>%d</code></td>
+                <td>Whole numbers</td>
+            </tr>
+            <tr>
+                <td><code>float</code></td>
+                <td>4 bytes</td>
+                <td><code>%f</code></td>
+                <td>Decimal values</td>
+            </tr>
+            <tr>
+                <td><code>double</code></td>
+                <td>8 bytes</td>
+                <td><code>%lf</code></td>
+                <td>Higher precision decimals</td>
+            </tr>
+            <tr>
+                <td><code>char</code></td>
+                <td>1 byte</td>
+                <td><code>%c</code></td>
+                <td>Single characters</td>
+            </tr>
+        </table>
+
+        <h3>Variables and Assignment</h3>
+        <div class="code-block"><pre><code class="language-c">int age = 20;
+float height = 5.9;
+char grade = 'A';</code></pre></div>
+
+        <h3>Conditions and Logical Operators</h3>
+        <p>Conditions let a program make decisions based on state. C supports <code>if</code>, <code>else if</code>, and <code>else</code> for branching.</p>
+
+        <div class="code-block"><pre><code class="language-c">int age = 20;
+
+if (age >= 18 && age < 60) {
+    printf("Adult Worker\n");
+} else {
+    printf("Not in working range\n");
+}</code></pre></div>
+
+        <h3>Loops</h3>
+        <p>Loops repeat code. In C, the most common loop types are <code>for</code>, <code>while</code>, and <code>do...while</code>.</p>
+
+        <div class="code-block"><pre><code class="language-c">for (int i = 0; i < 5; i++) {
+    printf("%d\n", i);
+}</code></pre></div>
+
+        <h3>Loop Control</h3>
+        <p><code>break</code> exits a loop early. <code>continue</code> skips the current iteration and moves to the next one.</p>
+
+        <div class="code-block"><pre><code class="language-c">for (int i = 0; i < 10; i++) {
+    if (i == 5) break;
+    if (i % 2 == 0) continue;
+    printf("%d ", i);
+}</code></pre></div>
+
+        <div class="info-block">
+            <strong>Remember:</strong> Logic errors often come from incorrect conditions more than syntax mistakes. Always reason carefully about comparisons and loop boundaries.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('intro', 1)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('pointers', 3)">Next →</button>
+        </div>
+    </div>
+
+    <div id="pointers" class="lesson-card">
+        <h2>3. Pointers, Addresses, and Direct RAM Access</h2>
+
+        <p>Pointers are one of the most important and most feared topics in C. A pointer is a variable that stores a memory address. This allows you to work with data indirectly and very efficiently.</p>
+
+        <h3>Basic Pointer Concept</h3>
+        <div class="code-block"><pre><code class="language-c">int x = 10;
+int *p = &x;
+
+printf("Address of x: %p\n", p);
+printf("Value of x through pointer: %d\n", *p);</code></pre></div>
+
+        <p>Here:</p>
+        <ul>
+            <li><code>&x</code> means “address of x”</li>
+            <li><code>p</code> stores that address</li>
+            <li><code>*p</code> means “value at the address stored in p”</li>
+        </ul>
+
+        <h3>Why Pointers Matter</h3>
+        <p>Pointers are used for:</p>
+        <ul>
+            <li>Dynamic memory allocation</li>
+            <li>Passing large data efficiently to functions</li>
+            <li>Working with arrays and strings</li>
+            <li>Building linked lists, trees, and other data structures</li>
+        </ul>
+
+        <h3>Pointer and Array Relationship</h3>
+        <div class="code-block"><pre><code class="language-c">int arr[3] = {10, 20, 30};
+int *ptr = arr;
+
+printf("%d\n", *ptr);       // 10
+printf("%d\n", *(ptr + 1)); // 20
+printf("%d\n", *(ptr + 2)); // 30</code></pre></div>
+
+        <p>This works because arrays and pointers are closely related in C. Array names often behave like pointers to the first element.</p>
+
+        <div class="tip-block">
+            <strong>💡 Best Practice:</strong> Always be careful with pointers. Accessing invalid memory can crash your program or cause hidden bugs.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('types', 2)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('memory', 4)">Next →</button>
+        </div>
+    </div>
+
+    <div id="memory" class="lesson-card">
+        <h2>4. Functions, Call Behavior, and Dynamic Memory</h2>
+
+        <p>Functions make code reusable and organized. In C, you must also think about how data is passed—either by value or through pointers.</p>
+
+        <h3>Functions in C</h3>
+        <div class="code-block"><pre><code class="language-c">int add(int a, int b) {
+    return a + b;
+}</code></pre></div>
+
+        <p>When arguments are passed normally, C uses pass-by-value. That means the function gets copies of the values, not the original variables.</p>
+
+        <h3>Pass by Pointer</h3>
+        <p>If you want a function to modify the original value, you pass its address.</p>
+
+        <div class="code-block"><pre><code class="language-c">void updateValue(int *num) {
+    *num = 50;
+}
+
+int main() {
+    int x = 10;
+    updateValue(&x);
+    printf("%d\n", x); // 50
+}</code></pre></div>
+
+        <h3>Dynamic Memory Allocation</h3>
+        <p>Dynamic memory is allocated at runtime using functions like <code>malloc()</code> and must be manually released using <code>free()</code>.</p>
+
+        <div class="code-block"><pre><code class="language-c">int *arr = (int*)malloc(5 * sizeof(int));
+
+if (arr == NULL) {
+    printf("Memory allocation failed\n");
+    return 1;
+}
+
+free(arr);</code></pre></div>
+
+        <p>This is one of the biggest differences between C and many higher-level languages. You control memory manually.</p>
+
+        <div class="info-block">
+            <strong>Important:</strong> If you forget to free allocated memory, your program may leak memory over time.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('pointers', 3)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('io', 5)">Next →</button>
+        </div>
+    </div>
+
+    <div id="io" class="lesson-card">
+        <h2>5. Structures and File Input/Output</h2>
+
+        <p>As programs grow, you need ways to group related data and save information permanently. Structures and file I/O solve these needs.</p>
+
+        <h3>Structures</h3>
+        <p>A structure lets you combine multiple values under one name.</p>
+
+        <div class="code-block"><pre><code class="language-c">struct Student {
+    char name[50];
+    int roll;
+    float gpa;
+};
+
+struct Student s1 = {"Moin", 101, 3.8};</code></pre></div>
+
+        <p>This is useful because real-world entities often have multiple properties. Structures model that clearly.</p>
+
+        <h3>Writing to Files</h3>
+        <div class="code-block"><pre><code class="language-c">FILE *fptr = fopen("database.txt", "w");
+
+if (fptr != NULL) {
+    fprintf(fptr, "C Programming is the foundation.");
+    fclose(fptr);
+}</code></pre></div>
+
+        <h3>Reading from Files</h3>
+        <div class="code-block"><pre><code class="language-c">FILE *fptr = fopen("database.txt", "r");
+char text[100];
+
+if (fptr != NULL) {
+    fgets(text, sizeof(text), fptr);
+    printf("%s", text);
+    fclose(fptr);
+}</code></pre></div>
+
+        <p>File I/O allows your program to preserve data after execution ends, which is essential for logs, records, saved settings, and persistent applications.</p>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('memory', 4)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('project', 6)">Next →</button>
+        </div>
+    </div>
+
+    <div id="project" class="lesson-card">
+        <h2>6. C Programming Mindset, Best Practices, and Final Quiz</h2>
+
+        <p>C teaches a mindset of precision. You become more careful with data, memory, and program structure. That discipline is valuable even if you later work in higher-level languages.</p>
+
+        <h3>Best Practices in C</h3>
+        <ul>
+            <li>Initialize variables before use.</li>
+            <li>Check pointer validity before dereferencing.</li>
+            <li>Always free dynamically allocated memory.</li>
+            <li>Use meaningful variable and function names.</li>
+            <li>Keep functions focused on one task.</li>
+        </ul>
+
+        <h3>Final C Programming Quiz</h3>
+
+        <div class="quiz-box">
+            <h3>🧠 C Programming Quiz</h3>
+
+            <div class="quiz-question">
+                <p>1. Which stage creates object code?</p>
+                <label><input type="radio" name="q1" value="a"> Assembly</label>
+                <label><input type="radio" name="q1" value="b"> Printing</label>
+                <label><input type="radio" name="q1" value="c"> Styling</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. What does a pointer store?</p>
+                <label><input type="radio" name="q2" value="a"> A color</label>
+                <label><input type="radio" name="q2" value="b"> A memory address</label>
+                <label><input type="radio" name="q2" value="c"> A file extension</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. Which function releases dynamic memory?</p>
+                <label><input type="radio" name="q3" value="a"> malloc()</label>
+                <label><input type="radio" name="q3" value="b"> printf()</label>
+                <label><input type="radio" name="q3" value="c"> free()</label>
+            </div>
+
+            <button class="quiz-btn" onclick="checkQuiz()">Submit Quiz</button>
+            <p id="quiz-result" class="quiz-result"></p>
+            <p id="saved-score" class="saved-score"></p>
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('io', 5)">← Previous</button>
+            <button class="page-btn" disabled>Next →</button>
+        </div>
+
+        <button class="btn-complete" onclick="markAsComplete(4)">🎉 Complete C Programming & Save Progress</button>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+        authDomain: "learnhub-4e07c.firebaseapp.com",
+        databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "learnhub-4e07c",
+        storageBucket: "learnhub-4e07c.firebasestorage.app",
+        messagingSenderId: "561780501823",
+        appId: "1:561780501823:web:b064c375c17ca618ee378a"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const courseId = 4;
+    const totalSections = 6;
+
+    function updateActiveTabById(id) {
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+        const tabMap = {
+            intro: 0,
+            types: 1,
+            pointers: 2,
+            memory: 3,
+            io: 4,
+            project: 5
+        };
+
+        const buttons = document.querySelectorAll('.nav-btn');
+        if (buttons[tabMap[id]]) {
+            buttons[tabMap[id]].classList.add('active');
+        }
+    }
+
+    function saveProgress(sectionNumber) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((sectionNumber / totalSections) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(percent)
+        .then(() => {
+            document.getElementById('progressText').textContent = `Progress: ${percent}%`;
+        })
+        .catch((error) => {
+            console.error("Progress save error:", error);
+        });
+    }
+
+    function loadSavedProgress() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).on('value', (snapshot) => {
+            const progress = snapshot.val() || 0;
+            document.getElementById('progressText').textContent = `Progress: ${progress}%`;
+        });
+    }
+
+    function showTab(id, sectionNumber, btnElement = null) {
+        document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btnElement) {
+            btnElement.classList.add('active');
+        } else {
+            updateActiveTabById(id);
+        }
+
+        saveProgress(sectionNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToSection(id, sectionNumber) {
+        showTab(id, sectionNumber, null);
+    }
+
+    function saveQuizScore(score, total) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((score / total) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).set({
+            score: score,
+            total: total,
+            percent: percent,
+            updatedAt: new Date().toISOString()
+        }).then(() => {
+            document.getElementById('saved-score').textContent = `Saved quiz score: ${score}/${total} (${percent}%)`;
+        }).catch((error) => {
+            console.error("Quiz score save error:", error);
+        });
+    }
+
+    function loadSavedQuizScore() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                document.getElementById('saved-score').textContent = `Saved quiz score: ${data.score}/${data.total} (${data.percent}%)`;
+            }
+        });
+    }
+
+    function checkQuiz() {
+        let score = 0;
+
+        const q1 = document.querySelector('input[name="q1"]:checked');
+        const q2 = document.querySelector('input[name="q2"]:checked');
+        const q3 = document.querySelector('input[name="q3"]:checked');
+
+        if (!q1 || !q2 || !q3) {
+            document.getElementById('quiz-result').textContent = "Please answer all questions.";
+            document.getElementById('quiz-result').style.color = "red";
+            return;
+        }
+
+        if (q1.value === "a") score++;
+        if (q2.value === "b") score++;
+        if (q3.value === "c") score++;
+
+        document.getElementById('quiz-result').textContent = `Your score: ${score}/3`;
+        document.getElementById('quiz-result').style.color = score >= 2 ? "green" : "red";
+
+        saveQuizScore(score, 3);
+    }
+
+    function markAsComplete(courseId) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+            .then(() => {
+                alert("C Programming 100% Complete! Progress synced.");
+                window.location.href = 'dashboard-firebase.html';
+            });
+        } else {
+            alert("Please login first.");
+        }
+    }
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            loadSavedProgress();
+            loadSavedQuizScore();
+        }
+    });
+
+    hljs.highlightAll();
+</script>
 </body>
 </html>

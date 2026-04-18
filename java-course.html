@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -682,5 +683,826 @@ System.out.println(math.add("Hello", "World")); // HelloWorld</code></pre>
 
         hljs.highlightAll();
     </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Basics - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary: #f5576c;
+            --secondary: #f093fb;
+            --bg: #f5f7fa;
+            --text: #2d3436;
+            --card: #ffffff;
+            --muted: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            line-height: 1.9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.28);
+        }
+
+        .back-btn {
+            float: left;
+            background: rgba(255,255,255,0.25);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .lesson-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #444;
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--muted);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .syntax-table th,
+        .syntax-table td {
+            border: 1px solid #eee;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .syntax-table th {
+            background: #fff1f4;
+            color: var(--primary);
+        }
+
+        .tip-block {
+            background: #ffe8ef;
+            border-left: 5px solid #f5576c;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .info-block {
+            background: #fdf1ff;
+            border-left: 5px solid #c75bff;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .quiz-box {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .quiz-box h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question p {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .quiz-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .quiz-btn:hover {
+            background: #218838;
+        }
+
+        .quiz-result {
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        .saved-score {
+            margin-top: 12px;
+            color: #1f6f33;
+            font-weight: 700;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.15rem;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .page-btn.secondary {
+            background: #6c757d;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        ul {
+            margin: 10px 0 15px 25px;
+            color: var(--muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .progress-status {
+            margin-top: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .lesson-card {
+                padding: 22px;
+            }
+
+            .header {
+                padding: 2rem 1.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <button onclick="window.location.href='dashboard-firebase.html'" class="back-btn">← Dashboard</button>
+        <h1>Java Programming Fundamentals</h1>
+        <p>Core Java syntax, variables, OOP concepts, methods, and strong programming logic</p>
+        <p id="progressText" class="progress-status">Progress: 0%</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showTab('basics', 1, this)">Java Basics</button>
+        <button class="nav-btn" onclick="showTab('variables', 2, this)">Variables & Types</button>
+        <button class="nav-btn" onclick="showTab('oop', 3, this)">OOP Concepts</button>
+        <button class="nav-btn" onclick="showTab('methods', 4, this)">Methods</button>
+        <button class="nav-btn" onclick="showTab('control', 5, this)">Control Flow & Arrays</button>
+        <button class="nav-btn" onclick="showTab('project', 6, this)">Best Practices & Quiz</button>
+    </div>
+
+    <div id="basics" class="lesson-card active">
+        <h2>1. Java Basics and Program Structure</h2>
+
+        <p>Java is a powerful object-oriented programming language known for portability, reliability, and strong structure. It follows the principle <strong>Write Once, Run Anywhere</strong>, meaning Java code is compiled into bytecode and executed on the Java Virtual Machine (JVM) instead of running directly on the operating system.</p>
+
+        <p>This design makes Java an excellent language for education, enterprise software, backend systems, and Android development. It enforces structure more strongly than many scripting languages, which helps students learn disciplined programming habits.</p>
+
+        <h3>Basic Java Program</h3>
+        <div class="code-block"><pre><code class="language-java">public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre></div>
+
+        <p>In this example:</p>
+        <ul>
+            <li><code>public class HelloWorld</code> defines the class.</li>
+            <li><code>main()</code> is the entry point of the program.</li>
+            <li><code>System.out.println()</code> prints text to the console.</li>
+        </ul>
+
+        <h3>Why Java Is Structured</h3>
+        <p>Java forces code into classes because it is designed around object-oriented principles. This encourages developers to think in terms of reusable units rather than loose statements scattered across files.</p>
+
+        <div class="tip-block">
+            <strong>💡 Best Practice:</strong> Java is case-sensitive. Even small changes in capitalization can break your code, so always type class names and method names carefully.
+        </div>
+
+        <h3>How Java Runs</h3>
+        <div class="code-block"><pre><code class="language-bash">javac HelloWorld.java
+java HelloWorld</code></pre></div>
+
+        <p>The first command compiles the source file into bytecode. The second command runs that bytecode using the JVM.</p>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" disabled>← Previous</button>
+            <button class="page-btn" onclick="goToSection('variables', 2)">Next →</button>
+        </div>
+    </div>
+
+    <div id="variables" class="lesson-card">
+        <h2>2. Variables, Data Types, and Type Conversion</h2>
+
+        <p>Java is a strongly typed language. Every variable must have a declared type. This improves safety because the compiler can detect many mistakes before the program even runs.</p>
+
+        <h3>Common Data Types</h3>
+        <table class="syntax-table">
+            <tr>
+                <th>Type</th>
+                <th>Approx Size</th>
+                <th>Use</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td><code>byte</code></td>
+                <td>1 byte</td>
+                <td>Small integers</td>
+                <td><code>byte b = 100;</code></td>
+            </tr>
+            <tr>
+                <td><code>int</code></td>
+                <td>4 bytes</td>
+                <td>Whole numbers</td>
+                <td><code>int age = 25;</code></td>
+            </tr>
+            <tr>
+                <td><code>long</code></td>
+                <td>8 bytes</td>
+                <td>Very large integers</td>
+                <td><code>long id = 123456789L;</code></td>
+            </tr>
+            <tr>
+                <td><code>float</code></td>
+                <td>4 bytes</td>
+                <td>Decimal values</td>
+                <td><code>float price = 19.99f;</code></td>
+            </tr>
+            <tr>
+                <td><code>double</code></td>
+                <td>8 bytes</td>
+                <td>Higher precision decimals</td>
+                <td><code>double salary = 50000.50;</code></td>
+            </tr>
+            <tr>
+                <td><code>boolean</code></td>
+                <td>1 bit</td>
+                <td>true/false</td>
+                <td><code>boolean active = true;</code></td>
+            </tr>
+            <tr>
+                <td><code>char</code></td>
+                <td>2 bytes</td>
+                <td>Single character</td>
+                <td><code>char grade = 'A';</code></td>
+            </tr>
+            <tr>
+                <td><code>String</code></td>
+                <td>Reference type</td>
+                <td>Text</td>
+                <td><code>String name = "John";</code></td>
+            </tr>
+        </table>
+
+        <h3>Example Variable Usage</h3>
+        <div class="code-block"><pre><code class="language-java">int count = 10;
+double price = 29.99;
+String name = "Alice";
+boolean isStudent = true;
+
+System.out.println("Name: " + name);
+System.out.println("Price: $" + price);</code></pre></div>
+
+        <h3>Type Conversion</h3>
+        <p>Java allows automatic widening conversions, but narrowing conversions require explicit casting.</p>
+
+        <div class="code-block"><pre><code class="language-java">int num = 42;
+double decimal = num; // automatic
+
+double pi = 3.14159;
+int rounded = (int) pi; // explicit cast</code></pre></div>
+
+        <div class="info-block">
+            <strong>Important:</strong> Explicit casting can lose information. For example, converting a double to an int removes the decimal part.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('basics', 1)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('oop', 3)">Next →</button>
+        </div>
+    </div>
+
+    <div id="oop" class="lesson-card">
+        <h2>3. Object-Oriented Programming Concepts</h2>
+
+        <p>Java is built on object-oriented programming. OOP organizes programs into classes and objects, which improves modularity, reuse, and maintainability.</p>
+
+        <h3>Classes and Objects</h3>
+        <div class="code-block"><pre><code class="language-java">public class Car {
+    String color;
+    String brand;
+    int year;
+
+    public Car(String color, String brand, int year) {
+        this.color = color;
+        this.brand = brand;
+        this.year = year;
+    }
+
+    public void displayInfo() {
+        System.out.println("Car: " + brand + " " + color + " (" + year + ")");
+    }
+}</code></pre></div>
+
+        <p>A class is a blueprint. An object is a real instance of that blueprint.</p>
+
+        <h3>Encapsulation</h3>
+        <p>Encapsulation protects internal data by using private fields and public getters/setters.</p>
+
+        <div class="code-block"><pre><code class="language-java">public class Student {
+    private String name;
+    private int age;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        }
+    }
+}</code></pre></div>
+
+        <h3>Inheritance</h3>
+        <p>Inheritance allows a class to reuse and extend another class.</p>
+
+        <div class="code-block"><pre><code class="language-java">class Animal {
+    protected String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+}
+
+class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+
+    public void bark() {
+        System.out.println(name + " says: Woof!");
+    }
+}</code></pre></div>
+
+        <div class="tip-block">
+            <strong>💡 OOP Idea:</strong> OOP is useful because it lets you model real-world entities using clear structure and reusable logic.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('variables', 2)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('methods', 4)">Next →</button>
+        </div>
+    </div>
+
+    <div id="methods" class="lesson-card">
+        <h2>4. Methods, Parameters, and Overloading</h2>
+
+        <p>Methods are functions that belong to a class. They define behavior and make code reusable. A good method has a clear name, a focused responsibility, and meaningful parameters.</p>
+
+        <h3>Method Example</h3>
+        <div class="code-block"><pre><code class="language-java">public int add(int a, int b) {
+    return a + b;
+}</code></pre></div>
+
+        <h3>Methods with Different Forms</h3>
+        <div class="code-block"><pre><code class="language-java">public void printMessage() {
+    System.out.println("Hello from method!");
+}
+
+public double calculateAverage(double a, double b, double c) {
+    return (a + b + c) / 3;
+}</code></pre></div>
+
+        <h3>Method Overloading</h3>
+        <p>Java allows multiple methods with the same name as long as their parameter lists differ.</p>
+
+        <div class="code-block"><pre><code class="language-java">public int add(int a, int b) {
+    return a + b;
+}
+
+public int add(int a, int b, int c) {
+    return a + b + c;
+}
+
+public double add(double a, double b) {
+    return a + b;
+}</code></pre></div>
+
+        <p>Overloading improves readability because one concept can be expressed with one method name across related cases.</p>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('oop', 3)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('control', 5)">Next →</button>
+        </div>
+    </div>
+
+    <div id="control" class="lesson-card">
+        <h2>5. Control Flow, Arrays, and Practical Logic</h2>
+
+        <p>Strong programming depends on more than syntax. You also need to understand decision-making, repetition, and grouped data handling.</p>
+
+        <h3>Conditionals</h3>
+        <div class="code-block"><pre><code class="language-java">int age = 20;
+
+if (age >= 18) {
+    System.out.println("Adult");
+} else {
+    System.out.println("Minor");
+}</code></pre></div>
+
+        <h3>Loops</h3>
+        <div class="code-block"><pre><code class="language-java">for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}</code></pre></div>
+
+        <h3>Arrays</h3>
+        <p>Arrays store multiple values of the same type.</p>
+
+        <div class="code-block"><pre><code class="language-java">int[] numbers = {10, 20, 30, 40};
+
+for (int i = 0; i < numbers.length; i++) {
+    System.out.println(numbers[i]);
+}</code></pre></div>
+
+        <h3>Enhanced For Loop</h3>
+        <div class="code-block"><pre><code class="language-java">for (int num : numbers) {
+    System.out.println(num);
+}</code></pre></div>
+
+        <div class="info-block">
+            <strong>Remember:</strong> Good logic comes from understanding program flow clearly. Always think about conditions, loop boundaries, and what data structure fits the task best.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('methods', 4)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('project', 6)">Next →</button>
+        </div>
+    </div>
+
+    <div id="project" class="lesson-card">
+        <h2>6. Java Best Practices and Final Quiz</h2>
+
+        <p>Strong Java code is clear, organized, and maintainable. Java rewards developers who write descriptive methods, keep classes focused, and respect object-oriented design principles.</p>
+
+        <h3>Best Practices</h3>
+        <ul>
+            <li>Use meaningful variable and method names.</li>
+            <li>Keep classes focused on one responsibility.</li>
+            <li>Use encapsulation to protect internal state.</li>
+            <li>Prefer readable logic over unnecessarily clever code.</li>
+            <li>Test methods independently when possible.</li>
+        </ul>
+
+        <h3>Final Java Quiz</h3>
+
+        <div class="quiz-box">
+            <h3>🧠 Java Quiz</h3>
+
+            <div class="quiz-question">
+                <p>1. Java follows which principle?</p>
+                <label><input type="radio" name="q1" value="a"> Write Once, Run Anywhere</label>
+                <label><input type="radio" name="q1" value="b"> Run Only on Windows</label>
+                <label><input type="radio" name="q1" value="c"> Delete After Compile</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. Which keyword means a method returns nothing?</p>
+                <label><input type="radio" name="q2" value="a"> null</label>
+                <label><input type="radio" name="q2" value="b"> void</label>
+                <label><input type="radio" name="q2" value="c"> break</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. What is encapsulation?</p>
+                <label><input type="radio" name="q3" value="a"> Bundling data and methods with controlled access</label>
+                <label><input type="radio" name="q3" value="b"> Deleting variables</label>
+                <label><input type="radio" name="q3" value="c"> Printing to console</label>
+            </div>
+
+            <button class="quiz-btn" onclick="checkQuiz()">Submit Quiz</button>
+            <p id="quiz-result" class="quiz-result"></p>
+            <p id="saved-score" class="saved-score"></p>
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('control', 5)">← Previous</button>
+            <button class="page-btn" disabled>Next →</button>
+        </div>
+
+        <button class="btn-complete" onclick="markAsComplete(2)">🎉 Complete Java Course & Save Progress</button>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+        authDomain: "learnhub-4e07c.firebaseapp.com",
+        databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "learnhub-4e07c",
+        storageBucket: "learnhub-4e07c.firebasestorage.app",
+        messagingSenderId: "561780501823",
+        appId: "1:561780501823:web:b064c375c17ca618ee378a"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const courseId = 2;
+    const totalSections = 6;
+
+    function updateActiveTabById(id) {
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+        const tabMap = {
+            basics: 0,
+            variables: 1,
+            oop: 2,
+            methods: 3,
+            control: 4,
+            project: 5
+        };
+
+        const buttons = document.querySelectorAll('.nav-btn');
+        if (buttons[tabMap[id]]) {
+            buttons[tabMap[id]].classList.add('active');
+        }
+    }
+
+    function saveProgress(sectionNumber) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((sectionNumber / totalSections) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(percent)
+        .then(() => {
+            document.getElementById('progressText').textContent = `Progress: ${percent}%`;
+        })
+        .catch((error) => {
+            console.error("Progress save error:", error);
+        });
+    }
+
+    function loadSavedProgress() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).on('value', (snapshot) => {
+            const progress = snapshot.val() || 0;
+            document.getElementById('progressText').textContent = `Progress: ${progress}%`;
+        });
+    }
+
+    function showTab(id, sectionNumber, btnElement = null) {
+        document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btnElement) {
+            btnElement.classList.add('active');
+        } else {
+            updateActiveTabById(id);
+        }
+
+        saveProgress(sectionNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToSection(id, sectionNumber) {
+        showTab(id, sectionNumber, null);
+    }
+
+    function saveQuizScore(score, total) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((score / total) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).set({
+            score: score,
+            total: total,
+            percent: percent,
+            updatedAt: new Date().toISOString()
+        }).then(() => {
+            document.getElementById('saved-score').textContent = `Saved quiz score: ${score}/${total} (${percent}%)`;
+        }).catch((error) => {
+            console.error("Quiz score save error:", error);
+        });
+    }
+
+    function loadSavedQuizScore() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                document.getElementById('saved-score').textContent = `Saved quiz score: ${data.score}/${data.total} (${data.percent}%)`;
+            }
+        });
+    }
+
+    function checkQuiz() {
+        let score = 0;
+
+        const q1 = document.querySelector('input[name="q1"]:checked');
+        const q2 = document.querySelector('input[name="q2"]:checked');
+        const q3 = document.querySelector('input[name="q3"]:checked');
+
+        if (!q1 || !q2 || !q3) {
+            document.getElementById('quiz-result').textContent = "Please answer all questions.";
+            document.getElementById('quiz-result').style.color = "red";
+            return;
+        }
+
+        if (q1.value === "a") score++;
+        if (q2.value === "b") score++;
+        if (q3.value === "a") score++;
+
+        document.getElementById('quiz-result').textContent = `Your score: ${score}/3`;
+        document.getElementById('quiz-result').style.color = score >= 2 ? "green" : "red";
+
+        saveQuizScore(score, 3);
+    }
+
+    function markAsComplete(courseId) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+            .then(() => {
+                alert("Java 100% Complete! Progress synced.");
+                window.location.href = 'dashboard-firebase.html';
+            });
+        } else {
+            alert("Please login first.");
+        }
+    }
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            loadSavedProgress();
+            loadSavedQuizScore();
+        }
+    });
+
+    hljs.highlightAll();
+</script>
 </body>
 </html>

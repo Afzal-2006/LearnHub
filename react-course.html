@@ -1,51 +1,277 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>React Framework Pro - LearnHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Framework - LearnHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
-        :root { --react-blue: #61dafb; --dark-bg: #20232a; --card-bg: #282c34; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--dark-bg); color: white; padding: 2rem; }
-        .container { max-width: 900px; margin: 0 auto; background: var(--card-bg); padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .progress-tag { color: var(--react-blue); font-weight: bold; margin-bottom: 10px; display: block; }
-        h1 { color: var(--react-blue); margin-bottom: 20px; border-bottom: 2px solid #444; padding-bottom: 10px; }
-        .content-section { display: none; line-height: 1.7; min-height: 400px; }
-        .content-section.active { display: block; animation: fadeIn 0.5s; }
-        pre { margin: 20px 0; border-radius: 8px; overflow: hidden; }
-        .controls { margin-top: 30px; display: flex; justify-content: space-between; }
-        .btn { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-next { background: var(--react-blue); color: #282c34; }
-        .btn-prev { background: #444; color: white; }
-        .btn-finish { background: #28a745; color: white; display: none; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #20232a 0%, #2d3748 100%);
+            min-height: 100vh;
+            padding: 1rem;
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: #282c34;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: #61dafb;
+        }
+
+        .back-btn {
+            background: #61dafb;
+            color: #20232a;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #61dafb 0%, #3b82f6 100%);
+            color: #111827;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: #282c34;
+            color: white;
+            border: 2px solid #444;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            border-color: #61dafb;
+            color: #61dafb;
+        }
+
+        .nav-btn.active {
+            background: #61dafb;
+            color: #20232a;
+            border-color: #61dafb;
+        }
+
+        .lesson-section {
+            display: none;
+            background: #282c34;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .lesson-section.active {
+            display: block;
+        }
+
+        .lesson-title {
+            color: #61dafb;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #61dafb;
+            padding-bottom: 0.5rem;
+        }
+
+        .lesson-subtitle {
+            color: #f3f4f6;
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .description {
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-block {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: #1f2937;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .syntax-table th {
+            background: #61dafb;
+            color: #111827;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .syntax-table td {
+            padding: 12px;
+            border-bottom: 1px solid #374151;
+            color: #e5e7eb;
+        }
+
+        .tip-block {
+            background: #0f172a;
+            border-left: 4px solid #61dafb;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            color: #dbeafe;
+        }
+
+        .button {
+            display: inline-block;
+            background: #61dafb;
+            color: #20232a;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            margin-right: 1rem;
+            margin-top: 1rem;
+            font-weight: 700;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .lesson-section {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="navbar">
+            <h1>⚛ React Framework</h1>
+            <button class="back-btn" onclick="window.location.href='dashboard-firebase.html'">← Back to Dashboard</button>
+        </div>
 
-<div class="container">
-    <span class="progress-tag" id="pageIndicator">Module 1 of 8</span>
-    
-    <div class="content-section active" id="page1">
-        <h1>1. The Virtual DOM</h1>
-        <p>React doesn't update the real browser DOM directly because it's slow. Instead, it creates a <strong>Virtual DOM</strong>—a lightweight copy in memory.</p>
-        <p>When state changes, React compares the new Virtual DOM with the old one (Diffing) and only updates the specific parts of the real DOM that changed (Reconciliation).</p>
-    </div>
+        <div class="header">
+            <h1>React Framework Pro</h1>
+            <p>Learn modern UI development with components, hooks, and JSX</p>
+        </div>
 
-    <div class="content-section" id="page2">
-        <h1>2. JSX: JavaScript XML</h1>
-        <p>JSX allows us to write HTML-like code inside JavaScript. It makes components more readable.</p>
-        <pre><code class="language-jsx">const name = "LearnHub";
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="showLesson('virtualdom')">Virtual DOM</button>
+            <button class="nav-btn" onclick="showLesson('jsx')">JSX</button>
+            <button class="nav-btn" onclick="showLesson('components')">Components & Props</button>
+            <button class="nav-btn" onclick="showLesson('hooks')">Hooks</button>
+        </div>
+
+        <div id="virtualdom" class="lesson-section active">
+            <h2 class="lesson-title">⚛ The Virtual DOM</h2>
+            <p class="description">
+                React does not update the browser DOM directly because DOM operations are slow. Instead, it creates a Virtual DOM, which is a lightweight copy of the real DOM in memory.
+            </p>
+
+            <h3 class="lesson-subtitle">How it Works</h3>
+            <p class="description">
+                When state changes, React creates a new Virtual DOM, compares it with the old one using diffing, and updates only the changed parts in the real DOM. This process is called reconciliation.
+            </p>
+
+            <div class="tip-block">
+                <strong>💡 Key Point:</strong> The Virtual DOM improves performance by avoiding unnecessary full-page updates.
+            </div>
+
+            <button class="button" onclick="showLesson('jsx')">Next: JSX →</button>
+        </div>
+
+        <div id="jsx" class="lesson-section">
+            <h2 class="lesson-title">🧩 JSX: JavaScript XML</h2>
+            <p class="description">
+                JSX allows you to write HTML-like syntax inside JavaScript. It makes React components easier to read and write.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-jsx">const name = "LearnHub";
 const element = &lt;h1&gt;Welcome to {name}&lt;/h1&gt;;</code></pre>
-        <p>Note: Browsers can't read JSX directly; it is compiled into <code>React.createElement()</code> by Babel.</p>
-    </div>
+            </div>
 
-    <div class="content-section" id="page3">
-        <h1>3. Functional Components</h1>
-        <p>Components are the building blocks of React. Functional components are simply JavaScript functions that return JSX.</p>
-        <pre><code class="language-jsx">function UserProfile() {
+            <p class="description">
+                Browsers cannot understand JSX directly, so Babel converts it into JavaScript using <code>React.createElement()</code>.
+            </p>
+
+            <button class="button" onclick="showLesson('components')">Next: Components & Props →</button>
+        </div>
+
+        <div id="components" class="lesson-section">
+            <h2 class="lesson-title">🧱 Components and Props</h2>
+            <p class="description">
+                Components are reusable building blocks in React. Props are read-only values passed from parent components to child components.
+            </p>
+
+            <h3 class="lesson-subtitle">Functional Component Example</h3>
+            <div class="code-block">
+                <pre><code class="language-jsx">function UserProfile() {
   return (
     &lt;div&gt;
       &lt;h2&gt;User Info&lt;/h2&gt;
@@ -53,59 +279,699 @@ const element = &lt;h1&gt;Welcome to {name}&lt;/h1&gt;;</code></pre>
     &lt;/div&gt;
   );
 }</code></pre>
-    </div>
+            </div>
 
-    <div class="content-section" id="page4">
-        <h1>4. Understanding Props</h1>
-        <p>Props (Properties) are read-only inputs passed from a parent component to a child. They allow components to be dynamic.</p>
-        <pre><code class="language-jsx">function Greeting(props) {
+            <h3 class="lesson-subtitle">Props Example</h3>
+            <div class="code-block">
+                <pre><code class="language-jsx">function Greeting(props) {
   return &lt;h1&gt;Hello, {props.name}!&lt;/h1&gt;;
 }
 
-// Usage: &lt;Greeting name="Alex" /&gt;</code></pre>
-    </div>
+// Usage
+&lt;Greeting name="Alex" /&gt;</code></pre>
+            </div>
 
-    <div id="page5" class="content-section">
-        <h1>5. The useState Hook</h1>
-        <p>State allows components to "remember" data. When state updates, React re-renders the component.</p>
-        <pre><code class="language-jsx">import { useState } from 'react';
+            <button class="button" onclick="showLesson('hooks')">Next: Hooks →</button>
+        </div>
+
+        <div id="hooks" class="lesson-section">
+            <h2 class="lesson-title">🪝 React Hooks</h2>
+            <p class="description">
+                Hooks let functional components use state and lifecycle features. The most common hooks are <code>useState</code> and <code>useEffect</code>.
+            </p>
+
+            <h3 class="lesson-subtitle">useState</h3>
+            <div class="code-block">
+                <pre><code class="language-jsx">import { useState } from 'react';
 
 function Counter() {
   const [count, setCount] = useState(0);
-  return &lt;button onClick={() => setCount(count + 1)}&gt;{count}&lt;/button&gt;;
+
+  return (
+    &lt;button onClick={() => setCount(count + 1)}&gt;
+      {count}
+    &lt;/button&gt;
+  );
 }</code></pre>
+            </div>
+
+            <h3 class="lesson-subtitle">useEffect</h3>
+            <div class="code-block">
+                <pre><code class="language-jsx">useEffect(() => {
+  console.log("Component Mounted!");
+
+  return () => console.log("Unmounting...");
+}, []);</code></pre>
+            </div>
+
+            <table class="syntax-table">
+                <tr>
+                    <th>Concept</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td><code>useState</code></td>
+                    <td>Stores changing data in a component</td>
+                </tr>
+                <tr>
+                    <td><code>useEffect</code></td>
+                    <td>Runs side effects like API calls</td>
+                </tr>
+                <tr>
+                    <td><code>key</code></td>
+                    <td>Helps React track list items efficiently</td>
+                </tr>
+            </table>
+
+            <button class="btn-complete" onclick="markAsComplete(8)">🎉 Complete React Framework Course</button>
+        </div>
     </div>
 
-    <div id="page6" class="content-section">
-        <h1>6. The useEffect Hook</h1>
-        <p>Used for "side effects" like fetching data, manual DOM changes, or setting up subscriptions.</p>
-        <pre><code class="language-jsx">useEffect(() => {
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+            authDomain: "learnhub-4e07c.firebaseapp.com",
+            databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "learnhub-4e07c",
+            storageBucket: "learnhub-4e07c.firebasestorage.app",
+            messagingSenderId: "561780501823",
+            appId: "1:561780501823:web:b064c375c17ca618ee378a"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        function showLesson(lessonId) {
+            document.querySelectorAll('.lesson-section').forEach(lesson => {
+                lesson.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(lessonId).classList.add('active');
+            if (event) event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function markAsComplete(courseId) {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+                .then(() => {
+                    alert("React progress saved! Congratulations on completing the course.");
+                    window.location.href = 'dashboard-firebase.html';
+                })
+                .catch((error) => {
+                    console.error("Error saving progress: ", error);
+                    alert("Error saving progress. Please try again.");
+                });
+            } else {
+                alert("Please log in to save your progress.");
+            }
+        }
+
+        hljs.highlightAll();
+    </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Framework Pro - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary: #61dafb;
+            --secondary: #3b82f6;
+            --bg: #20232a;
+            --card: #282c34;
+            --text: #f3f4f6;
+            --muted: #d1d5db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #20232a 0%, #2d3748 100%);
+            color: var(--text);
+            line-height: 1.9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #61dafb 0%, #3b82f6 100%);
+            color: #111827;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(97, 218, 251, 0.28);
+        }
+
+        .back-btn {
+            float: left;
+            background: rgba(255,255,255,0.35);
+            border: none;
+            color: #111827;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: #111827;
+            color: white;
+            border: 2px solid #374151;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: #111827;
+            border-color: var(--primary);
+        }
+
+        .lesson-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #f9fafb;
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--muted);
+        }
+
+        .code-block {
+            background: #111827;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .syntax-table th,
+        .syntax-table td {
+            border: 1px solid #374151;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .syntax-table th {
+            background: #0f172a;
+            color: var(--primary);
+        }
+
+        .tip-block {
+            background: #0f172a;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+            color: #dbeafe;
+        }
+
+        .info-block {
+            background: #17202f;
+            border-left: 5px solid #3b82f6;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+            color: #dbeafe;
+        }
+
+        .quiz-box {
+            background: #0f172a;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .quiz-box h3 {
+            margin-top: 0;
+            color: #4ade80;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question p {
+            font-weight: 700;
+            color: #f9fafb;
+            margin-bottom: 10px;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            color: #d1d5db;
+        }
+
+        .quiz-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .quiz-btn:hover {
+            background: #218838;
+        }
+
+        .quiz-result {
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        .saved-score {
+            margin-top: 12px;
+            color: #86efac;
+            font-weight: 700;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.15rem;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: var(--primary);
+            color: #111827;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .page-btn.secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        ul {
+            margin: 10px 0 15px 25px;
+            color: var(--muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .progress-status {
+            margin-top: 15px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .lesson-card {
+                padding: 22px;
+            }
+
+            .header {
+                padding: 2rem 1.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <button onclick="window.location.href='dashboard-firebase.html'" class="back-btn">← Dashboard</button>
+        <h1>React Framework Pro</h1>
+        <p>Virtual DOM, JSX, components, props, hooks, and practical React thinking</p>
+        <p id="progressText" class="progress-status">Progress: 0%</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showTab('virtualdom', 1, this)">Virtual DOM</button>
+        <button class="nav-btn" onclick="showTab('jsx', 2, this)">JSX</button>
+        <button class="nav-btn" onclick="showTab('components', 3, this)">Components & Props</button>
+        <button class="nav-btn" onclick="showTab('hooks', 4, this)">Hooks</button>
+        <button class="nav-btn" onclick="showTab('stateflow', 5, this)">State & Rendering</button>
+        <button class="nav-btn" onclick="showTab('project', 6, this)">Best Practices & Quiz</button>
+    </div>
+
+    <div id="virtualdom" class="lesson-card active">
+        <h2>1. The Virtual DOM</h2>
+
+        <p>React became popular because it made user interface development more predictable and component-based. One of its most important concepts is the Virtual DOM. Instead of directly updating the browser DOM every time data changes, React first creates a lightweight in-memory representation of the UI.</p>
+
+        <p>When state or props change, React compares the new virtual tree with the previous one. This process is called diffing. After diffing, React updates only the parts of the real DOM that actually changed. This overall strategy is called reconciliation.</p>
+
+        <h3>Why React Uses a Virtual DOM</h3>
+        <ul>
+            <li>Direct DOM updates can be expensive.</li>
+            <li>React reduces unnecessary updates.</li>
+            <li>UI changes become more predictable.</li>
+            <li>Developers can think in terms of state, not manual DOM manipulation.</li>
+        </ul>
+
+        <div class="info-block">
+            <strong>Important:</strong> The Virtual DOM is not a magical replacement for performance issues. It is a smart optimization layer that works well with React’s component model.
+        </div>
+
+        <h3>Core Idea</h3>
+        <p>Instead of saying “change this exact DOM node manually,” you tell React what the UI should look like for the current data. React handles the DOM update details for you.</p>
+
+        <div class="tip-block">
+            <strong>💡 Key Idea:</strong> In React, UI is treated like a function of state. Change the state, and React updates the UI accordingly.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" disabled>← Previous</button>
+            <button class="page-btn" onclick="goToSection('jsx', 2)">Next →</button>
+        </div>
+    </div>
+
+    <div id="jsx" class="lesson-card">
+        <h2>2. JSX: JavaScript XML</h2>
+
+        <p>JSX lets developers write HTML-like syntax inside JavaScript. This makes UI code easier to read because structure and logic stay close together. Even though JSX looks like HTML, browsers do not understand it directly. Build tools transform JSX into regular JavaScript function calls.</p>
+
+        <h3>Basic JSX Example</h3>
+        <div class="code-block"><pre><code class="language-jsx">const name = "LearnHub";
+const element = &lt;h1&gt;Welcome to {name}&lt;/h1&gt;;</code></pre></div>
+
+        <p>The expression inside curly braces is JavaScript. That means JSX is flexible because it can combine markup-like syntax with actual logic.</p>
+
+        <h3>Why JSX Helps</h3>
+        <ul>
+            <li>UI becomes easier to read.</li>
+            <li>Logic and structure stay close together.</li>
+            <li>Components become clearer and more maintainable.</li>
+        </ul>
+
+        <h3>JSX Rules</h3>
+        <ul>
+            <li>Return one parent element.</li>
+            <li>Use <code>className</code> instead of <code>class</code>.</li>
+            <li>JavaScript expressions go inside curly braces.</li>
+            <li>Every tag must be closed properly.</li>
+        </ul>
+
+        <div class="code-block"><pre><code class="language-jsx">function App() {
+  return (
+    &lt;div className="container"&gt;
+      &lt;h2&gt;React UI&lt;/h2&gt;
+      &lt;p&gt;Learning JSX&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('virtualdom', 1)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('components', 3)">Next →</button>
+        </div>
+    </div>
+
+    <div id="components" class="lesson-card">
+        <h2>3. Functional Components and Props</h2>
+
+        <p>React applications are built from components. A component is a reusable piece of UI. Instead of building one huge page file, React encourages breaking the interface into smaller, focused parts.</p>
+
+        <h3>Functional Components</h3>
+        <div class="code-block"><pre><code class="language-jsx">function UserProfile() {
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;User Info&lt;/h2&gt;
+      &lt;p&gt;Active Student&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+
+        <p>Functional components are simply JavaScript functions that return JSX. They are now the main standard in modern React development.</p>
+
+        <h3>Props</h3>
+        <p>Props are read-only inputs passed from parent components to child components. They let one component become dynamic.</p>
+
+        <div class="code-block"><pre><code class="language-jsx">function Greeting(props) {
+  return &lt;h1&gt;Hello, {props.name}!&lt;/h1&gt;;
+}
+
+// Usage:
+// &lt;Greeting name="Alex" /&gt;</code></pre></div>
+
+        <ul>
+            <li>Props flow from parent to child.</li>
+            <li>Props are read-only.</li>
+            <li>They help components become reusable.</li>
+        </ul>
+
+        <div class="tip-block">
+            <strong>💡 Component Thinking:</strong> Build UIs like Lego blocks. Small reusable components are easier to test, style, and maintain.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('jsx', 2)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('hooks', 4)">Next →</button>
+        </div>
+    </div>
+
+    <div id="hooks" class="lesson-card">
+        <h2>4. Hooks: useState and useEffect</h2>
+
+        <p>Hooks let functional components use state and lifecycle-related features. Before hooks, many of these capabilities required class components. Now, hooks make functional components much more powerful.</p>
+
+        <h3>useState</h3>
+        <p><code>useState</code> lets a component remember data between renders.</p>
+
+        <div class="code-block"><pre><code class="language-jsx">import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+      {count}
+    &lt;/button&gt;
+  );
+}</code></pre></div>
+
+        <h3>useEffect</h3>
+        <p><code>useEffect</code> is used for side effects such as API calls, subscriptions, timers, or manual browser interactions.</p>
+
+        <div class="code-block"><pre><code class="language-jsx">import { useEffect } from 'react';
+
+useEffect(() => {
   console.log("Component Mounted!");
   return () => console.log("Unmounting...");
-}, []); // Empty array means run once</code></pre>
+}, []);</code></pre></div>
+
+        <p>The empty dependency array means the effect runs once after the first render.</p>
+
+        <div class="info-block">
+            <strong>Important:</strong> Hooks must be called at the top level of a React component, not inside loops or conditions.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('components', 3)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('stateflow', 5)">Next →</button>
+        </div>
     </div>
 
-    <div id="page7" class="content-section">
-        <h1>7. Lists and Keys</h1>
-        <p>We use <code>.map()</code> to render lists. Every list item needs a unique <code>key</code> prop so React can track it efficiently.</p>
-        <pre><code class="language-jsx">const items = ['React', 'Vue', 'Angular'];
+    <div id="stateflow" class="lesson-card">
+        <h2>5. State, Re-rendering, Lists, and UI Flow</h2>
+
+        <p>One of the biggest strengths of React is the relationship between state and rendering. When state changes, React re-renders the component so the UI stays in sync with the data.</p>
+
+        <h3>Rendering Lists</h3>
+        <p>React commonly renders lists using <code>map()</code>. Each list item needs a unique key so React can track updates efficiently.</p>
+
+        <div class="code-block"><pre><code class="language-jsx">const items = ['React', 'Vue', 'Angular'];
+
 return (
   &lt;ul&gt;
-    {items.map(item => &lt;li key={item}&gt;{item}&lt;/li&gt;)}
+    {items.map(item =&gt; &lt;li key={item}&gt;{item}&lt;/li&gt;)}
   &lt;/ul&gt;
-);</code></pre>
+);</code></pre></div>
+
+        <h3>Re-rendering</h3>
+        <p>React re-renders when props or state change. This is not the same as redrawing the whole page blindly. React uses reconciliation to update only the parts that changed.</p>
+
+        <h3>Custom Hooks and Code Reuse</h3>
+        <p>Custom hooks let you reuse logic across components without repeating code.</p>
+
+        <div class="code-block"><pre><code class="language-jsx">function useCounter(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  const increment = () =&gt; setCount(count + 1);
+  const decrement = () =&gt; setCount(count - 1);
+
+  return { count, increment, decrement };
+}</code></pre></div>
+
+        <ul>
+            <li>State controls what the UI shows.</li>
+            <li>Props allow data to move between components.</li>
+            <li>Hooks allow reusable logic.</li>
+            <li>Keys help React manage list updates efficiently.</li>
+        </ul>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('hooks', 4)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('project', 6)">Next →</button>
+        </div>
     </div>
 
-    <div id="page8" class="content-section">
-        <h1>8. Final Project Structure</h1>
-        <p>In a pro environment, we organize components into folders. We use <strong>Custom Hooks</strong> to separate logic from UI.</p>
-        <p>Congratulations! You have mastered the fundamentals of React.</p>
-    </div>
+    <div id="project" class="lesson-card">
+        <h2>6. React Best Practices and Final Quiz</h2>
 
-    <div class="controls">
-        <button class="btn btn-prev" id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
-        <button class="btn btn-next" id="nextBtn" onclick="changePage(1)">Next Module</button>
-        <button class="btn btn-finish" id="finishBtn" onclick="markAsComplete(8)">🎉 Finish & Update Progress</button>
+        <p>Strong React development is not about memorizing hook names only. It is about thinking in components, keeping state manageable, and making the UI predictable.</p>
+
+        <h3>Best Practices</h3>
+        <ul>
+            <li>Break large UIs into smaller reusable components.</li>
+            <li>Use props clearly and keep them meaningful.</li>
+            <li>Keep state as local as possible.</li>
+            <li>Use keys correctly when rendering lists.</li>
+            <li>Write hooks only where they improve clarity and reuse.</li>
+        </ul>
+
+        <h3>Final React Quiz</h3>
+
+        <div class="quiz-box">
+            <h3>🧠 React Quiz</h3>
+
+            <div class="quiz-question">
+                <p>1. What is the Virtual DOM?</p>
+                <label><input type="radio" name="q1" value="a"> A lightweight copy of the real DOM</label>
+                <label><input type="radio" name="q1" value="b"> A database</label>
+                <label><input type="radio" name="q1" value="c"> A CSS file</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. What does JSX do?</p>
+                <label><input type="radio" name="q2" value="a"> Lets you write HTML-like code inside JavaScript</label>
+                <label><input type="radio" name="q2" value="b"> Compiles C code</label>
+                <label><input type="radio" name="q2" value="c"> Only styles buttons</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. What does useState do?</p>
+                <label><input type="radio" name="q3" value="a"> Stores changing data in a component</label>
+                <label><input type="radio" name="q3" value="b"> Sends email</label>
+                <label><input type="radio" name="q3" value="c"> Deletes DOM nodes</label>
+            </div>
+
+            <button class="quiz-btn" onclick="checkQuiz()">Submit Quiz</button>
+            <p id="quiz-result" class="quiz-result"></p>
+            <p id="saved-score" class="saved-score"></p>
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('stateflow', 5)">← Previous</button>
+            <button class="page-btn" disabled>Next →</button>
+        </div>
+
+        <button class="btn-complete" onclick="markAsComplete(8)">🎉 Complete React Course & Save Progress</button>
     </div>
 </div>
 
@@ -123,27 +989,149 @@ return (
         messagingSenderId: "561780501823",
         appId: "1:561780501823:web:b064c375c17ca618ee378a"
     };
-    firebase.initializeApp(firebaseConfig);
 
-    let curr = 1;
-    function changePage(s){
-        document.getElementById(`page${curr}`).classList.remove('active');
-        curr += s;
-        document.getElementById(`page${curr}`).classList.add('active');
-        document.getElementById('pageIndicator').innerText = `Module ${curr} of 8`;
-        document.getElementById('prevBtn').disabled = (curr === 1);
-        document.getElementById('nextBtn').style.display = (curr === 8) ? 'none' : 'block';
-        document.getElementById('finishBtn').style.display = (curr === 8) ? 'block' : 'none';
-        window.scrollTo(0,0);
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
     }
 
-    function markAsComplete(id) {
-        const user = firebase.auth().currentUser;
-        if(user) {
-            firebase.database().ref('users/' + user.uid + '/progress/' + id).set(100)
-            .then(() => { alert("React Progress Saved!"); window.location.href='dashboard-firebase.html'; });
+    const courseId = 8;
+    const totalSections = 6;
+
+    function updateActiveTabById(id) {
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+        const tabMap = {
+            virtualdom: 0,
+            jsx: 1,
+            components: 2,
+            hooks: 3,
+            stateflow: 4,
+            project: 5
+        };
+
+        const buttons = document.querySelectorAll('.nav-btn');
+        if (buttons[tabMap[id]]) {
+            buttons[tabMap[id]].classList.add('active');
         }
     }
+
+    function saveProgress(sectionNumber) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((sectionNumber / totalSections) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(percent)
+        .then(() => {
+            document.getElementById('progressText').textContent = `Progress: ${percent}%`;
+        })
+        .catch((error) => {
+            console.error("Progress save error:", error);
+        });
+    }
+
+    function loadSavedProgress() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).on('value', (snapshot) => {
+            const progress = snapshot.val() || 0;
+            document.getElementById('progressText').textContent = `Progress: ${progress}%`;
+        });
+    }
+
+    function showTab(id, sectionNumber, btnElement = null) {
+        document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btnElement) {
+            btnElement.classList.add('active');
+        } else {
+            updateActiveTabById(id);
+        }
+
+        saveProgress(sectionNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToSection(id, sectionNumber) {
+        showTab(id, sectionNumber, null);
+    }
+
+    function saveQuizScore(score, total) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((score / total) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).set({
+            score: score,
+            total: total,
+            percent: percent,
+            updatedAt: new Date().toISOString()
+        }).then(() => {
+            document.getElementById('saved-score').textContent = `Saved quiz score: ${score}/${total} (${percent}%)`;
+        }).catch((error) => {
+            console.error("Quiz score save error:", error);
+        });
+    }
+
+    function loadSavedQuizScore() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                document.getElementById('saved-score').textContent = `Saved quiz score: ${data.score}/${data.total} (${data.percent}%)`;
+            }
+        });
+    }
+
+    function checkQuiz() {
+        let score = 0;
+
+        const q1 = document.querySelector('input[name="q1"]:checked');
+        const q2 = document.querySelector('input[name="q2"]:checked');
+        const q3 = document.querySelector('input[name="q3"]:checked');
+
+        if (!q1 || !q2 || !q3) {
+            document.getElementById('quiz-result').textContent = "Please answer all questions.";
+            document.getElementById('quiz-result').style.color = "red";
+            return;
+        }
+
+        if (q1.value === "a") score++;
+        if (q2.value === "a") score++;
+        if (q3.value === "a") score++;
+
+        document.getElementById('quiz-result').textContent = `Your score: ${score}/3`;
+        document.getElementById('quiz-result').style.color = score >= 2 ? "green" : "red";
+
+        saveQuizScore(score, 3);
+    }
+
+    function markAsComplete(courseId) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+            .then(() => {
+                alert("React 100% Complete! Progress synced.");
+                window.location.href = 'dashboard-firebase.html';
+            });
+        } else {
+            alert("Please login first.");
+        }
+    }
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            loadSavedProgress();
+            loadSavedQuizScore();
+        }
+    });
+
     hljs.highlightAll();
 </script>
 </body>

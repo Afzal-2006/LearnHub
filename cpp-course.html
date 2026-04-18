@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,5 +174,795 @@ for(int n : v) {
         }
         hljs.highlightAll();
     </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced C++ Masterclass - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary: #fa709a;
+            --secondary: #fee140;
+            --bg: #fdfcfb;
+            --text: #2d3436;
+            --card: #ffffff;
+            --muted: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(250, 112, 154, 0.28);
+        }
+
+        .back-btn {
+            float: left;
+            background: rgba(255,255,255,0.25);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .lesson-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #444;
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--muted);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .syntax-table th,
+        .syntax-table td {
+            border: 1px solid #eee;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .syntax-table th {
+            background: #fff5f8;
+            color: var(--primary);
+        }
+
+        .tip-block {
+            background: #fff9db;
+            border-left: 5px solid #fcc419;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .info-block {
+            background: #fff4f8;
+            border-left: 5px solid #fa709a;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .quiz-box {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .quiz-box h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question p {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .quiz-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .quiz-btn:hover {
+            background: #218838;
+        }
+
+        .quiz-result {
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        .saved-score {
+            margin-top: 12px;
+            color: #1f6f33;
+            font-weight: 700;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.15rem;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .page-btn.secondary {
+            background: #6c757d;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        ul {
+            margin: 10px 0 15px 25px;
+            color: var(--muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .progress-status {
+            margin-top: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .lesson-card {
+                padding: 22px;
+            }
+
+            .header {
+                padding: 2rem 1.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <button onclick="window.location.href='dashboard-firebase.html'" class="back-btn">← Dashboard</button>
+        <h1>Advanced C++ Masterclass</h1>
+        <p>Object-oriented design, inheritance, polymorphism, STL, and modern C++ thinking</p>
+        <p id="progressText" class="progress-status">Progress: 0%</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showTab('oop', 1, this)">Classes & Encapsulation</button>
+        <button class="nav-btn" onclick="showTab('inheritance', 2, this)">Inheritance</button>
+        <button class="nav-btn" onclick="showTab('poly', 3, this)">Polymorphism</button>
+        <button class="nav-btn" onclick="showTab('stl', 4, this)">STL</button>
+        <button class="nav-btn" onclick="showTab('memory', 5, this)">Memory & Advanced Thinking</button>
+        <button class="nav-btn" onclick="showTab('project', 6, this)">Best Practices & Quiz</button>
+    </div>
+
+    <div id="oop" class="lesson-card active">
+        <h2>1. Classes, Objects, and Encapsulation</h2>
+
+        <p>C++ extends C by adding classes, stronger abstraction, constructors, destructors, templates, and powerful ways to organize code. One of the most important ideas is encapsulation, which means combining data and the methods that operate on that data into a single unit.</p>
+
+        <p>Encapsulation improves maintainability because it helps you hide internal implementation details. This means other parts of the program interact with a class through a defined public interface instead of directly manipulating internal state.</p>
+
+        <h3>Basic Class Example</h3>
+        <div class="code-block"><pre><code class="language-cpp">class Employee {
+private:
+    double salary;
+
+public:
+    string name;
+
+    void setSalary(double s) {
+        if (s > 0) salary = s;
+    }
+
+    double getSalary() {
+        return salary;
+    }
+};</code></pre></div>
+
+        <p>Here, <code>salary</code> is private, which means external code cannot access it directly. Instead, the class provides methods to safely update and retrieve the value.</p>
+
+        <h3>Why Encapsulation Matters</h3>
+        <ul>
+            <li>It protects object state.</li>
+            <li>It reduces accidental misuse.</li>
+            <li>It creates cleaner code boundaries.</li>
+            <li>It makes future changes easier.</li>
+        </ul>
+
+        <div class="tip-block">
+            <strong>💡 Best Practice:</strong> Keep internal data private unless there is a strong reason not to. Let public methods control how that data is used.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" disabled>← Previous</button>
+            <button class="page-btn" onclick="goToSection('inheritance', 2)">Next →</button>
+        </div>
+    </div>
+
+    <div id="inheritance" class="lesson-card">
+        <h2>2. Inheritance and Access Control</h2>
+
+        <p>Inheritance allows a child class to reuse properties and methods from a parent class. This reduces duplication and helps organize related concepts into hierarchies.</p>
+
+        <h3>Access Modifiers</h3>
+        <table class="syntax-table">
+            <tr>
+                <th>Modifier</th>
+                <th>Inside Class</th>
+                <th>Derived Class</th>
+                <th>Outside Class</th>
+            </tr>
+            <tr>
+                <td><code>public</code></td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><code>protected</code></td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td><code>private</code></td>
+                <td>Yes</td>
+                <td>No</td>
+                <td>No</td>
+            </tr>
+        </table>
+
+        <h3>Inheritance Example</h3>
+        <div class="code-block"><pre><code class="language-cpp">class Vehicle {
+public:
+    string brand = "Ford";
+
+    void honk() {
+        cout << "Tuut, tuut!" << endl;
+    }
+};
+
+class Car : public Vehicle {
+public:
+    string model = "Mustang";
+};</code></pre></div>
+
+        <p>In this example, <code>Car</code> inherits the <code>brand</code> property and the <code>honk()</code> method from <code>Vehicle</code>.</p>
+
+        <h3>When to Use Inheritance</h3>
+        <p>Inheritance works best when a child is a specialized form of the parent. For example, a car is a type of vehicle. However, inheritance should be used carefully. Sometimes composition is cleaner than inheritance.</p>
+
+        <div class="info-block">
+            <strong>Important:</strong> Inheritance is powerful, but overusing it can create rigid class hierarchies. Always think about real relationships between objects.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('oop', 1)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('poly', 3)">Next →</button>
+        </div>
+    </div>
+
+    <div id="poly" class="lesson-card">
+        <h2>3. Polymorphism and Virtual Functions</h2>
+
+        <p>Polymorphism means “many forms.” In C++, it allows code to work through a common interface while different derived classes provide different implementations.</p>
+
+        <h3>Virtual Functions</h3>
+        <p>Virtual functions enable runtime polymorphism. That means the correct function is chosen based on the actual object type at runtime, not just the pointer type.</p>
+
+        <div class="code-block"><pre><code class="language-cpp">class Shape {
+public:
+    virtual void area() = 0;
+};
+
+class Circle : public Shape {
+public:
+    void area() override {
+        cout << "Area of Circle is PI*r^2" << endl;
+    }
+};
+
+class Square : public Shape {
+public:
+    void area() override {
+        cout << "Area of Square is a^2" << endl;
+    }
+};</code></pre></div>
+
+        <p>The function in <code>Shape</code> is a pure virtual function. That makes <code>Shape</code> an abstract class, which means you cannot create a direct object of it.</p>
+
+        <h3>Why Polymorphism Is Useful</h3>
+        <ul>
+            <li>It allows flexible code design.</li>
+            <li>It supports interfaces and reusable architecture.</li>
+            <li>It helps different classes behave correctly under a shared base type.</li>
+        </ul>
+
+        <div class="tip-block">
+            <strong>💡 Tip:</strong> Polymorphism becomes especially valuable in larger systems, where many objects share a general contract but implement details differently.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('inheritance', 2)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('stl', 4)">Next →</button>
+        </div>
+    </div>
+
+    <div id="stl" class="lesson-card">
+        <h2>4. Standard Template Library (STL)</h2>
+
+        <p>The Standard Template Library is one of the most powerful features of C++. It provides reusable containers, iterators, and algorithms so you do not need to build every data structure from scratch.</p>
+
+        <h3>Important Containers</h3>
+        <table class="syntax-table">
+            <tr>
+                <th>Container</th>
+                <th>Purpose</th>
+                <th>Typical Benefit</th>
+            </tr>
+            <tr>
+                <td><code>std::vector</code></td>
+                <td>Dynamic array</td>
+                <td>Fast indexed access</td>
+            </tr>
+            <tr>
+                <td><code>std::map</code></td>
+                <td>Key-value store</td>
+                <td>Sorted lookup</td>
+            </tr>
+            <tr>
+                <td><code>std::list</code></td>
+                <td>Doubly linked list</td>
+                <td>Flexible insertion/deletion</td>
+            </tr>
+            <tr>
+                <td><code>std::queue</code></td>
+                <td>FIFO structure</td>
+                <td>Task ordering</td>
+            </tr>
+            <tr>
+                <td><code>std::stack</code></td>
+                <td>LIFO structure</td>
+                <td>Undo/history patterns</td>
+            </tr>
+        </table>
+
+        <h3>Vector and Algorithm Example</h3>
+        <div class="code-block"><pre><code class="language-cpp">#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+vector&lt;int&gt; v = {5, 2, 9, 1};
+v.push_back(10);
+sort(v.begin(), v.end());
+
+for (int n : v) {
+    cout &lt;&lt; n &lt;&lt; " ";
+}</code></pre></div>
+
+        <p>STL makes code shorter, safer, and more powerful. It also encourages using tested, standardized tools rather than rewriting common operations manually.</p>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('poly', 3)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('memory', 5)">Next →</button>
+        </div>
+    </div>
+
+    <div id="memory" class="lesson-card">
+        <h2>5. Memory Management, Constructors, and Advanced Thinking</h2>
+
+        <p>C++ gives more control than many higher-level languages, but that also means memory and object lifecycle matter a lot. Constructors initialize objects, destructors clean them up, and dynamic memory introduces responsibility.</p>
+
+        <h3>Constructors</h3>
+        <div class="code-block"><pre><code class="language-cpp">class Student {
+public:
+    string name;
+    int age;
+
+    Student(string n, int a) {
+        name = n;
+        age = a;
+    }
+};</code></pre></div>
+
+        <h3>Destructor</h3>
+        <div class="code-block"><pre><code class="language-cpp">class Demo {
+public:
+    Demo() {
+        cout << "Object created" << endl;
+    }
+
+    ~Demo() {
+        cout << "Object destroyed" << endl;
+    }
+};</code></pre></div>
+
+        <h3>Dynamic Memory</h3>
+        <div class="code-block"><pre><code class="language-cpp">int *ptr = new int(10);
+cout << *ptr << endl;
+delete ptr;</code></pre></div>
+
+        <p>Modern C++ often prefers safer alternatives such as smart pointers, but understanding raw <code>new</code> and <code>delete</code> is still important for learning the language deeply.</p>
+
+        <div class="info-block">
+            <strong>Remember:</strong> Good C++ developers think not only about syntax, but also about ownership, object lifetime, efficiency, and maintainability.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('stl', 4)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('project', 6)">Next →</button>
+        </div>
+    </div>
+
+    <div id="project" class="lesson-card">
+        <h2>6. C++ Best Practices and Final Quiz</h2>
+
+        <p>To write good C++ code, focus on clarity and correctness. Complex features do not automatically make code better. In many cases, disciplined design matters more than language tricks.</p>
+
+        <h3>Best Practices</h3>
+        <ul>
+            <li>Keep classes focused and meaningful.</li>
+            <li>Hide internal state unless public access is necessary.</li>
+            <li>Use inheritance only when the relationship is truly logical.</li>
+            <li>Prefer STL containers and algorithms when possible.</li>
+            <li>Manage memory carefully and avoid leaks.</li>
+        </ul>
+
+        <h3>Final C++ Quiz</h3>
+
+        <div class="quiz-box">
+            <h3>🧠 C++ Quiz</h3>
+
+            <div class="quiz-question">
+                <p>1. What does encapsulation do?</p>
+                <label><input type="radio" name="q1" value="a"> Bundles data and methods together</label>
+                <label><input type="radio" name="q1" value="b"> Deletes all variables</label>
+                <label><input type="radio" name="q1" value="c"> Changes HTML</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. Which keyword enables runtime polymorphism?</p>
+                <label><input type="radio" name="q2" value="a"> virtual</label>
+                <label><input type="radio" name="q2" value="b"> float</label>
+                <label><input type="radio" name="q2" value="c"> select</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. Which STL container is a dynamic array?</p>
+                <label><input type="radio" name="q3" value="a"> std::vector</label>
+                <label><input type="radio" name="q3" value="b"> std::map</label>
+                <label><input type="radio" name="q3" value="c"> std::list only</label>
+            </div>
+
+            <button class="quiz-btn" onclick="checkQuiz()">Submit Quiz</button>
+            <p id="quiz-result" class="quiz-result"></p>
+            <p id="saved-score" class="saved-score"></p>
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('memory', 5)">← Previous</button>
+            <button class="page-btn" disabled>Next →</button>
+        </div>
+
+        <button class="btn-complete" onclick="markAsComplete(5)">🎉 Complete C++ & Save Progress</button>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+        authDomain: "learnhub-4e07c.firebaseapp.com",
+        databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "learnhub-4e07c",
+        storageBucket: "learnhub-4e07c.firebasestorage.app",
+        messagingSenderId: "561780501823",
+        appId: "1:561780501823:web:b064c375c17ca618ee378a"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const courseId = 5;
+    const totalSections = 6;
+
+    function updateActiveTabById(id) {
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+        const tabMap = {
+            oop: 0,
+            inheritance: 1,
+            poly: 2,
+            stl: 3,
+            memory: 4,
+            project: 5
+        };
+
+        const buttons = document.querySelectorAll('.nav-btn');
+        if (buttons[tabMap[id]]) {
+            buttons[tabMap[id]].classList.add('active');
+        }
+    }
+
+    function saveProgress(sectionNumber) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((sectionNumber / totalSections) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(percent)
+        .then(() => {
+            document.getElementById('progressText').textContent = `Progress: ${percent}%`;
+        })
+        .catch((error) => {
+            console.error("Progress save error:", error);
+        });
+    }
+
+    function loadSavedProgress() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).on('value', (snapshot) => {
+            const progress = snapshot.val() || 0;
+            document.getElementById('progressText').textContent = `Progress: ${progress}%`;
+        });
+    }
+
+    function showTab(id, sectionNumber, btnElement = null) {
+        document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btnElement) {
+            btnElement.classList.add('active');
+        } else {
+            updateActiveTabById(id);
+        }
+
+        saveProgress(sectionNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToSection(id, sectionNumber) {
+        showTab(id, sectionNumber, null);
+    }
+
+    function saveQuizScore(score, total) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((score / total) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).set({
+            score: score,
+            total: total,
+            percent: percent,
+            updatedAt: new Date().toISOString()
+        }).then(() => {
+            document.getElementById('saved-score').textContent = `Saved quiz score: ${score}/${total} (${percent}%)`;
+        }).catch((error) => {
+            console.error("Quiz score save error:", error);
+        });
+    }
+
+    function loadSavedQuizScore() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                document.getElementById('saved-score').textContent = `Saved quiz score: ${data.score}/${data.total} (${data.percent}%)`;
+            }
+        });
+    }
+
+    function checkQuiz() {
+        let score = 0;
+
+        const q1 = document.querySelector('input[name="q1"]:checked');
+        const q2 = document.querySelector('input[name="q2"]:checked');
+        const q3 = document.querySelector('input[name="q3"]:checked');
+
+        if (!q1 || !q2 || !q3) {
+            document.getElementById('quiz-result').textContent = "Please answer all questions.";
+            document.getElementById('quiz-result').style.color = "red";
+            return;
+        }
+
+        if (q1.value === "a") score++;
+        if (q2.value === "a") score++;
+        if (q3.value === "a") score++;
+
+        document.getElementById('quiz-result').textContent = `Your score: ${score}/3`;
+        document.getElementById('quiz-result').style.color = score >= 2 ? "green" : "red";
+
+        saveQuizScore(score, 3);
+    }
+
+    function markAsComplete(courseId) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+            .then(() => {
+                alert("C++ 100% Complete! Progress synced.");
+                window.location.href = 'dashboard-firebase.html';
+            });
+        } else {
+            alert("Please login first.");
+        }
+    }
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            loadSavedProgress();
+            loadSavedQuizScore();
+        }
+    });
+
+    hljs.highlightAll();
+</script>
 </body>
 </html>

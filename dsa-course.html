@@ -1,95 +1,1070 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA Masterclass - LearnHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
-        :root { --dsa-blue: #4facfe; --bg: #f0f4f8; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 2rem; color: #333; }
-        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        .tag { color: var(--dsa-blue); font-weight: bold; }
-        h1 { color: #0072ff; border-bottom: 2px solid #eee; padding-bottom: 10px; margin: 15px 0; }
-        .content-section { display: none; line-height: 1.8; min-height: 400px; }
-        .content-section.active { display: block; animation: slideUp 0.4s; }
-        pre { background: #2d3436; border-radius: 8px; margin: 20px 0; }
-        .controls { margin-top: 30px; display: flex; justify-content: space-between; }
-        .btn { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
-        .btn-next { background: var(--dsa-blue); color: white; }
-        .btn-finish { background: #28a745; color: white; display: none; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #eef2f7 0%, #d8e3f0 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .navbar {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: #0072ff;
+        }
+
+        .back-btn {
+            background: #0072ff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #0072ff 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            border-color: #0072ff;
+            color: #0072ff;
+        }
+
+        .nav-btn.active {
+            background: #0072ff;
+            color: white;
+            border-color: #0072ff;
+        }
+
+        .lesson-section {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-section.active {
+            display: block;
+        }
+
+        .lesson-title {
+            color: #0072ff;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #0072ff;
+            padding-bottom: 0.5rem;
+        }
+
+        .lesson-subtitle {
+            color: #333;
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .syntax-table th {
+            background: #0072ff;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .syntax-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tip-block {
+            background: #eaf4ff;
+            border-left: 4px solid #0072ff;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #0072ff;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            margin-right: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .lesson-section {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="navbar">
+            <h1>📘 DSA Masterclass</h1>
+            <button class="back-btn" onclick="window.location.href='dashboard-firebase.html'">← Back to Dashboard</button>
+        </div>
 
-<div class="container">
-    <span class="tag" id="pageTag">Module 1 of 8</span>
-    
-    <div class="content-section active" id="page1">
-        <h1>1. Big O Notation</h1>
-        <p>Big O describes the efficiency of an algorithm. It measures how time or space requirements grow as the input size (n) increases.</p>
-        <ul>
-            <li><strong>O(1):</strong> Constant time (Fastest)</li>
-            <li><strong>O(log n):</strong> Logarithmic time (Binary Search)</li>
-            <li><strong>O(n):</strong> Linear time (Loops)</li>
-            <li><strong>O(n²):</strong> Quadratic time (Nested loops)</li>
-        </ul>
-    </div>
+        <div class="header">
+            <h1>Data Structures & Algorithms</h1>
+            <p>Master the core concepts behind efficient problem solving</p>
+        </div>
 
-    <div class="content-section" id="page2">
-        <h1>2. Array Logic</h1>
-        <p>Arrays are stored in <strong>contiguous memory</strong>. This makes accessing an element by index extremely fast: <code>O(1)</code>.</p>
-        <p>However, inserting or deleting at the start of an array is <code>O(n)</code> because every other element must be shifted.</p>
-    </div>
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="showLesson('bigo')">Big O</button>
+            <button class="nav-btn" onclick="showLesson('linear')">Arrays & Lists</button>
+            <button class="nav-btn" onclick="showLesson('stacksqueues')">Stacks & Queues</button>
+            <button class="nav-btn" onclick="showLesson('advanced')">Hashing, Trees, Sorting</button>
+        </div>
 
-    <div class="content-section" id="page3">
-        <h1>3. Linked Lists</h1>
-        <p>Unlike arrays, Linked Lists are nodes scattered in memory, connected by pointers.</p>
-        <pre><code class="language-javascript">class Node {
+        <div id="bigo" class="lesson-section active">
+            <h2 class="lesson-title">📈 Big O Notation</h2>
+            <p class="description">
+                Big O notation describes how the time or space required by an algorithm grows as the input size increases.
+            </p>
+
+            <table class="syntax-table">
+                <tr>
+                    <th>Complexity</th>
+                    <th>Meaning</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>O(1)</code></td>
+                    <td>Constant time</td>
+                    <td>Array access by index</td>
+                </tr>
+                <tr>
+                    <td><code>O(log n)</code></td>
+                    <td>Logarithmic time</td>
+                    <td>Binary Search</td>
+                </tr>
+                <tr>
+                    <td><code>O(n)</code></td>
+                    <td>Linear time</td>
+                    <td>Simple loop</td>
+                </tr>
+                <tr>
+                    <td><code>O(n²)</code></td>
+                    <td>Quadratic time</td>
+                    <td>Nested loops / Bubble Sort</td>
+                </tr>
+            </table>
+
+            <button class="button" onclick="showLesson('linear')">Next: Arrays & Lists →</button>
+        </div>
+
+        <div id="linear" class="lesson-section">
+            <h2 class="lesson-title">🧱 Arrays and Linked Lists</h2>
+            <p class="description">
+                Arrays store elements in contiguous memory, allowing fast direct access using indexes. Linked Lists store nodes connected by pointers.
+            </p>
+
+            <h3 class="lesson-subtitle">Arrays</h3>
+            <p class="description">
+                Array access is <code>O(1)</code>, but inserting or deleting at the beginning is <code>O(n)</code> because elements must be shifted.
+            </p>
+
+            <h3 class="lesson-subtitle">Linked Lists</h3>
+            <div class="code-block">
+                <pre><code class="language-javascript">class Node {
   constructor(data) {
     this.data = data;
     this.next = null;
   }
 }</code></pre>
-        <p>Benefit: Fast insertion/deletion at any point if you have the pointer.</p>
+            </div>
+
+            <div class="tip-block">
+                <strong>💡 Key Point:</strong> Linked Lists allow faster insert/delete operations when you already have the node pointer.
+            </div>
+
+            <button class="button" onclick="showLesson('stacksqueues')">Next: Stacks & Queues →</button>
+        </div>
+
+        <div id="stacksqueues" class="lesson-section">
+            <h2 class="lesson-title">📚 Stacks and Queues</h2>
+            <p class="description">
+                Stacks and queues are linear data structures used to manage data in different orders.
+            </p>
+
+            <h3 class="lesson-subtitle">Stack (LIFO)</h3>
+            <p class="description">
+                Stack follows <strong>Last-In, First-Out</strong>. Common operations are <code>push()</code> and <code>pop()</code>.
+            </p>
+
+            <h3 class="lesson-subtitle">Queue (FIFO)</h3>
+            <p class="description">
+                Queue follows <strong>First-In, First-Out</strong>. Common operations are <code>enqueue()</code> and <code>dequeue()</code>.
+            </p>
+
+            <table class="syntax-table">
+                <tr>
+                    <th>Structure</th>
+                    <th>Rule</th>
+                    <th>Common Use</th>
+                </tr>
+                <tr>
+                    <td>Stack</td>
+                    <td>LIFO</td>
+                    <td>Undo, call stack</td>
+                </tr>
+                <tr>
+                    <td>Queue</td>
+                    <td>FIFO</td>
+                    <td>Scheduling, printer queue</td>
+                </tr>
+            </table>
+
+            <button class="button" onclick="showLesson('advanced')">Next: Hashing, Trees, Sorting →</button>
+        </div>
+
+        <div id="advanced" class="lesson-section">
+            <h2 class="lesson-title">🌳 Hash Tables, Trees, and Sorting</h2>
+            <p class="description">
+                These are powerful DSA topics used to solve advanced programming problems efficiently.
+            </p>
+
+            <h3 class="lesson-subtitle">Hash Tables</h3>
+            <p class="description">
+                A hash table stores key-value pairs and usually gives average lookup time of <code>O(1)</code>.
+            </p>
+
+            <h3 class="lesson-subtitle">Binary Search Trees</h3>
+            <p class="description">
+                In BST, left children are smaller and right children are larger. Search is typically <code>O(log n)</code>.
+            </p>
+
+            <h3 class="lesson-subtitle">Sorting</h3>
+            <p class="description">
+                Bubble Sort is <code>O(n²)</code>, while Quick Sort is usually <code>O(n log n)</code>.
+            </p>
+
+            <button class="btn-complete" onclick="markAsComplete(7)">🎉 Complete DSA Masterclass</button>
+        </div>
     </div>
 
-    <div class="content-section" id="page4">
-        <h1>4. Stacks (LIFO)</h1>
-        <p>Stacks follow <strong>Last-In, First-Out</strong>. Common operations are <code>push()</code> and <code>pop()</code>.</p>
-        <p>Used in: Undo buttons, function calls (the "Call Stack"), and reversing data.</p>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnM53oo0Jah3Zg1Wxda-K6N5ddtYuJfQI",
+            authDomain: "learnhub-4e07c.firebaseapp.com",
+            databaseURL: "https://learnhub-4e07c-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "learnhub-4e07c",
+            storageBucket: "learnhub-4e07c.firebasestorage.app",
+            messagingSenderId: "561780501823",
+            appId: "1:561780501823:web:b064c375c17ca618ee378a"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        function showLesson(lessonId) {
+            document.querySelectorAll('.lesson-section').forEach(lesson => {
+                lesson.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(lessonId).classList.add('active');
+            if (event) event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function markAsComplete(courseId) {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+                .then(() => {
+                    alert("DSA progress saved! Congratulations on completing the course.");
+                    window.location.href = 'dashboard-firebase.html';
+                })
+                .catch((error) => {
+                    console.error("Error saving progress: ", error);
+                    alert("Error saving progress. Please try again.");
+                });
+            } else {
+                alert("Please log in to save your progress.");
+            }
+        }
+
+        hljs.highlightAll();
+    </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Masterclass - LearnHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary: #0072ff;
+            --secondary: #4facfe;
+            --bg: #eef2f7;
+            --text: #2d3436;
+            --card: #ffffff;
+            --muted: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #eef2f7 0%, #d8e3f0 100%);
+            color: var(--text);
+            line-height: 1.9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #0072ff 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.28);
+        }
+
+        .back-btn {
+            float: left;
+            background: rgba(255,255,255,0.25);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .lesson-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #444;
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--muted);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .syntax-table th,
+        .syntax-table td {
+            border: 1px solid #eee;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .syntax-table th {
+            background: #edf5ff;
+            color: var(--primary);
+        }
+
+        .tip-block {
+            background: #eaf4ff;
+            border-left: 5px solid #0072ff;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .info-block {
+            background: #eef7ff;
+            border-left: 5px solid #4facfe;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .quiz-box {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .quiz-box h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question p {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .quiz-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .quiz-btn:hover {
+            background: #218838;
+        }
+
+        .quiz-result {
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        .saved-score {
+            margin-top: 12px;
+            color: #1f6f33;
+            font-weight: 700;
+        }
+
+        .btn-complete {
+            background: #28a745;
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.15rem;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-complete:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .page-btn.secondary {
+            background: #6c757d;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        ul {
+            margin: 10px 0 15px 25px;
+            color: var(--muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .progress-status {
+            margin-top: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .lesson-card {
+                padding: 22px;
+            }
+
+            .header {
+                padding: 2rem 1.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <button onclick="window.location.href='dashboard-firebase.html'" class="back-btn">← Dashboard</button>
+        <h1>Data Structures & Algorithms Masterclass</h1>
+        <p>Big O, arrays, linked lists, stacks, queues, trees, hashing, sorting, and algorithmic thinking</p>
+        <p id="progressText" class="progress-status">Progress: 0%</p>
     </div>
 
-    <div class="content-section" id="page5">
-        <h1>5. Queues (FIFO)</h1>
-        <p>Queues follow <strong>First-In, First-Out</strong>. Common operations are <code>enqueue()</code> and <code>dequeue()</code>.</p>
-        <p>Used in: Printer queues, task scheduling, and Breadth-First Search.</p>
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showTab('bigo', 1, this)">Big O</button>
+        <button class="nav-btn" onclick="showTab('linear', 2, this)">Arrays & Lists</button>
+        <button class="nav-btn" onclick="showTab('stacksqueues', 3, this)">Stacks & Queues</button>
+        <button class="nav-btn" onclick="showTab('trees', 4, this)">Trees & Hashing</button>
+        <button class="nav-btn" onclick="showTab('sorting', 5, this)">Sorting & Searching</button>
+        <button class="nav-btn" onclick="showTab('project', 6, this)">Best Practices & Quiz</button>
     </div>
 
-    <div class="content-section" id="page6">
-        <h1>6. Hash Tables</h1>
-        <p>A Hash Table stores key-value pairs. It uses a <strong>Hash Function</strong> to turn a key into an index in an array.</p>
-        <p>Average lookup time is <code>O(1)</code>, making it one of the most powerful structures in programming.</p>
+    <div id="bigo" class="lesson-card active">
+        <h2>1. Big O Notation and Algorithmic Efficiency</h2>
+
+        <p>Data Structures and Algorithms are about solving problems efficiently. A working solution is not always a good solution. If an algorithm takes too long on large input sizes, it becomes impractical in real systems.</p>
+
+        <p>Big O notation helps measure how time or space requirements grow as input size increases. It does not focus on tiny constant details. Instead, it focuses on growth patterns as the amount of data becomes large.</p>
+
+        <h3>Why Efficiency Matters</h3>
+        <p>A simple loop over 10 items feels instant. A nested loop over a million items can become extremely slow. The ability to estimate performance before running code is one of the most important programming skills.</p>
+
+        <h3>Common Time Complexities</h3>
+        <table class="syntax-table">
+            <tr>
+                <th>Complexity</th>
+                <th>Meaning</th>
+                <th>Typical Example</th>
+            </tr>
+            <tr>
+                <td><code>O(1)</code></td>
+                <td>Constant time</td>
+                <td>Array index access</td>
+            </tr>
+            <tr>
+                <td><code>O(log n)</code></td>
+                <td>Logarithmic time</td>
+                <td>Binary Search</td>
+            </tr>
+            <tr>
+                <td><code>O(n)</code></td>
+                <td>Linear time</td>
+                <td>Single loop</td>
+            </tr>
+            <tr>
+                <td><code>O(n log n)</code></td>
+                <td>Efficient sorting class</td>
+                <td>Merge Sort, Quick Sort average case</td>
+            </tr>
+            <tr>
+                <td><code>O(n²)</code></td>
+                <td>Quadratic time</td>
+                <td>Nested loops, Bubble Sort</td>
+            </tr>
+        </table>
+
+        <h3>Examples</h3>
+        <div class="code-block"><pre><code class="language-javascript">// O(1)
+console.log(arr[3]);
+
+// O(n)
+for (let i = 0; i < n; i++) {
+  console.log(i);
+}
+
+// O(n²)
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    console.log(i, j);
+  }
+}</code></pre></div>
+
+        <div class="tip-block">
+            <strong>💡 Big Idea:</strong> Big O is not about writing scary math. It is about understanding how solutions scale when the input becomes large.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" disabled>← Previous</button>
+            <button class="page-btn" onclick="goToSection('linear', 2)">Next →</button>
+        </div>
     </div>
 
-    <div class="content-section" id="page7">
-        <h1>7. Binary Search Trees (BST)</h1>
-        <p>A Tree where each node has at most two children. For any node, left children are smaller, and right children are larger.</p>
-        <p>Search complexity: <code>O(log n)</code>.</p>
+    <div id="linear" class="lesson-card">
+        <h2>2. Arrays and Linked Lists</h2>
+
+        <p>Arrays and linked lists are both linear data structures, but they work very differently. Understanding their trade-offs helps you choose the right one for a problem.</p>
+
+        <h3>Arrays</h3>
+        <p>Arrays store values in contiguous memory. This makes indexed access extremely fast, usually <code>O(1)</code>.</p>
+
+        <div class="code-block"><pre><code class="language-javascript">const numbers = [10, 20, 30, 40];
+console.log(numbers[2]); // 30</code></pre></div>
+
+        <p>However, inserting or deleting at the beginning or middle can be costly because other elements may need to shift.</p>
+
+        <h3>Linked Lists</h3>
+        <p>Linked lists are made of nodes. Each node stores data and a reference to the next node.</p>
+
+        <div class="code-block"><pre><code class="language-javascript">class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}</code></pre></div>
+
+        <p>Linked lists are more flexible for insertion and deletion when you already have a reference to the correct location. But they do not support fast indexed access like arrays do.</p>
+
+        <h3>Comparison</h3>
+        <table class="syntax-table">
+            <tr>
+                <th>Operation</th>
+                <th>Array</th>
+                <th>Linked List</th>
+            </tr>
+            <tr>
+                <td>Indexed Access</td>
+                <td>Fast</td>
+                <td>Slow</td>
+            </tr>
+            <tr>
+                <td>Insert at Front</td>
+                <td>Slow</td>
+                <td>Fast</td>
+            </tr>
+            <tr>
+                <td>Memory Layout</td>
+                <td>Contiguous</td>
+                <td>Distributed nodes</td>
+            </tr>
+        </table>
+
+        <div class="info-block">
+            <strong>Remember:</strong> Arrays are excellent for direct access. Linked lists are useful when structural changes happen often.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('bigo', 1)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('stacksqueues', 3)">Next →</button>
+        </div>
     </div>
 
-    <div class="content-section" id="page8">
-        <h1>8. Basic Sorting</h1>
-        <p>Sorting is the process of arranging data in order. <strong>Bubble Sort</strong> is O(n²), while <strong>Quick Sort</strong> is O(n log n).</p>
-        <p>You have now completed the DSA core concepts!</p>
+    <div id="stacksqueues" class="lesson-card">
+        <h2>3. Stacks and Queues</h2>
+
+        <p>Stacks and queues are simple but powerful structures that control the order in which items are processed.</p>
+
+        <h3>Stacks</h3>
+        <p>A stack follows <strong>LIFO</strong> — Last In, First Out. The last item added is the first one removed.</p>
+
+        <ul>
+            <li>Push = add item</li>
+            <li>Pop = remove top item</li>
+            <li>Peek/Top = inspect top item</li>
+        </ul>
+
+        <p>Stacks are used in undo systems, browser history, recursion, and expression evaluation.</p>
+
+        <h3>Queues</h3>
+        <p>A queue follows <strong>FIFO</strong> — First In, First Out. The first item added is the first one removed.</p>
+
+        <ul>
+            <li>Enqueue = add item</li>
+            <li>Dequeue = remove front item</li>
+            <li>Front = inspect first item</li>
+        </ul>
+
+        <p>Queues are useful in task scheduling, printer systems, buffering, and breadth-first search.</p>
+
+        <table class="syntax-table">
+            <tr>
+                <th>Structure</th>
+                <th>Rule</th>
+                <th>Common Use</th>
+            </tr>
+            <tr>
+                <td>Stack</td>
+                <td>LIFO</td>
+                <td>Undo, recursion, backtracking</td>
+            </tr>
+            <tr>
+                <td>Queue</td>
+                <td>FIFO</td>
+                <td>Scheduling, BFS, buffering</td>
+            </tr>
+        </table>
+
+        <div class="tip-block">
+            <strong>💡 Tip:</strong> Even simple structures become extremely powerful when combined with the right problem-solving technique.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('linear', 2)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('trees', 4)">Next →</button>
+        </div>
     </div>
 
-    <div class="controls">
-        <button class="btn" id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
-        <button class="btn btn-next" id="nextBtn" onclick="changePage(1)">Next Module</button>
-        <button class="btn btn-finish" id="finishBtn" onclick="markAsComplete(7)">🎉 Claim 100% Progress</button>
+    <div id="trees" class="lesson-card">
+        <h2>4. Trees, Binary Search Trees, and Hashing</h2>
+
+        <p>Trees store hierarchical data. A tree has nodes connected in parent-child relationships. They are used in file systems, parsers, search structures, and database indexing.</p>
+
+        <h3>Binary Trees</h3>
+        <p>In a binary tree, each node can have at most two children: left and right.</p>
+
+        <h3>Binary Search Tree (BST)</h3>
+        <p>In a BST:</p>
+        <ul>
+            <li>Left child values are smaller than the parent</li>
+            <li>Right child values are larger than the parent</li>
+        </ul>
+
+        <p>This structure can make searching efficient if the tree remains balanced.</p>
+
+        <h3>Hash Tables</h3>
+        <p>A hash table stores key-value pairs and uses a hash function to decide where a value should be placed. It is one of the most practical structures in real software because average lookup can be very fast.</p>
+
+        <table class="syntax-table">
+            <tr>
+                <th>Structure</th>
+                <th>Best Strength</th>
+                <th>Typical Complexity</th>
+            </tr>
+            <tr>
+                <td>BST</td>
+                <td>Ordered searching</td>
+                <td><code>O(log n)</code> if balanced</td>
+            </tr>
+            <tr>
+                <td>Hash Table</td>
+                <td>Fast average lookup</td>
+                <td><code>O(1)</code> average</td>
+            </tr>
+        </table>
+
+        <div class="info-block">
+            <strong>Important:</strong> Trees are good when order matters. Hash tables are great when fast direct lookup matters more than sorted order.
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('stacksqueues', 3)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('sorting', 5)">Next →</button>
+        </div>
+    </div>
+
+    <div id="sorting" class="lesson-card">
+        <h2>5. Sorting and Searching</h2>
+
+        <p>Sorting arranges data in order, which often makes other operations easier and faster. Searching finds a target value within data.</p>
+
+        <h3>Bubble Sort</h3>
+        <p>Bubble Sort repeatedly compares adjacent elements and swaps them if they are in the wrong order. It is easy to understand but inefficient for large input sizes.</p>
+
+        <div class="code-block"><pre><code class="language-javascript">for (let i = 0; i < arr.length; i++) {
+  for (let j = 0; j < arr.length - i - 1; j++) {
+    if (arr[j] > arr[j + 1]) {
+      [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+    }
+  }
+}</code></pre></div>
+
+        <h3>Binary Search</h3>
+        <p>Binary Search works only on sorted arrays. It repeatedly cuts the search space in half, making it much faster than linear search on large sorted data.</p>
+
+        <div class="code-block"><pre><code class="language-javascript">function binarySearch(arr, target) {
+  let left = 0, right = arr.length - 1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (arr[mid] === target) return mid;
+    if (arr[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+
+  return -1;
+}</code></pre></div>
+
+        <h3>Sorting Comparison</h3>
+        <table class="syntax-table">
+            <tr>
+                <th>Algorithm</th>
+                <th>Typical Complexity</th>
+                <th>Note</th>
+            </tr>
+            <tr>
+                <td>Bubble Sort</td>
+                <td><code>O(n²)</code></td>
+                <td>Simple but slow</td>
+            </tr>
+            <tr>
+                <td>Merge Sort</td>
+                <td><code>O(n log n)</code></td>
+                <td>Stable and efficient</td>
+            </tr>
+            <tr>
+                <td>Quick Sort</td>
+                <td><code>O(n log n)</code> average</td>
+                <td>Very practical and fast in average cases</td>
+            </tr>
+        </table>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('trees', 4)">← Previous</button>
+            <button class="page-btn" onclick="goToSection('project', 6)">Next →</button>
+        </div>
+    </div>
+
+    <div id="project" class="lesson-card">
+        <h2>6. DSA Best Practices and Final Quiz</h2>
+
+        <p>Strong DSA thinking is not about memorizing every algorithm. It is about recognizing patterns, choosing suitable structures, and understanding performance trade-offs.</p>
+
+        <h3>Best Practices</h3>
+        <ul>
+            <li>Always think about input size before choosing an approach.</li>
+            <li>Pick a data structure that matches the required operations.</li>
+            <li>Prefer clarity first, then optimize where necessary.</li>
+            <li>Understand why an algorithm works, not just how to type it.</li>
+            <li>Practice problem-solving consistently to build intuition.</li>
+        </ul>
+
+        <h3>Final DSA Quiz</h3>
+
+        <div class="quiz-box">
+            <h3>🧠 DSA Quiz</h3>
+
+            <div class="quiz-question">
+                <p>1. Which complexity is fastest among these?</p>
+                <label><input type="radio" name="q1" value="a"> O(1)</label>
+                <label><input type="radio" name="q1" value="b"> O(n²)</label>
+                <label><input type="radio" name="q1" value="c"> O(n)</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. Which structure follows LIFO?</p>
+                <label><input type="radio" name="q2" value="a"> Queue</label>
+                <label><input type="radio" name="q2" value="b"> Stack</label>
+                <label><input type="radio" name="q2" value="c"> Tree</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. Which structure stores key-value pairs?</p>
+                <label><input type="radio" name="q3" value="a"> Hash table</label>
+                <label><input type="radio" name="q3" value="b"> Bubble sort</label>
+                <label><input type="radio" name="q3" value="c"> Loop</label>
+            </div>
+
+            <button class="quiz-btn" onclick="checkQuiz()">Submit Quiz</button>
+            <p id="quiz-result" class="quiz-result"></p>
+            <p id="saved-score" class="saved-score"></p>
+        </div>
+
+        <div class="nav-actions">
+            <button class="page-btn secondary" onclick="goToSection('sorting', 5)">← Previous</button>
+            <button class="page-btn" disabled>Next →</button>
+        </div>
+
+        <button class="btn-complete" onclick="markAsComplete(7)">🎉 Complete DSA Course & Save Progress</button>
     </div>
 </div>
 
@@ -107,27 +1082,149 @@
         messagingSenderId: "561780501823",
         appId: "1:561780501823:web:b064c375c17ca618ee378a"
     };
-    firebase.initializeApp(firebaseConfig);
 
-    let curr = 1;
-    function changePage(s){
-        document.getElementById(`page${curr}`).classList.remove('active');
-        curr += s;
-        document.getElementById(`page${curr}`).classList.add('active');
-        document.getElementById('pageTag').innerText = `Module ${curr} of 8`;
-        document.getElementById('prevBtn').disabled = (curr === 1);
-        document.getElementById('nextBtn').style.display = (curr === 8) ? 'none' : 'block';
-        document.getElementById('finishBtn').style.display = (curr === 8) ? 'block' : 'none';
-        window.scrollTo(0,0);
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
     }
 
-    function markAsComplete(id) {
-        const user = firebase.auth().currentUser;
-        if(user) {
-            firebase.database().ref('users/' + user.uid + '/progress/' + id).set(100)
-            .then(() => { alert("DSA Progress Saved!"); window.location.href='dashboard-firebase.html'; });
+    const courseId = 7;
+    const totalSections = 6;
+
+    function updateActiveTabById(id) {
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+        const tabMap = {
+            bigo: 0,
+            linear: 1,
+            stacksqueues: 2,
+            trees: 3,
+            sorting: 4,
+            project: 5
+        };
+
+        const buttons = document.querySelectorAll('.nav-btn');
+        if (buttons[tabMap[id]]) {
+            buttons[tabMap[id]].classList.add('active');
         }
     }
+
+    function saveProgress(sectionNumber) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((sectionNumber / totalSections) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(percent)
+        .then(() => {
+            document.getElementById('progressText').textContent = `Progress: ${percent}%`;
+        })
+        .catch((error) => {
+            console.error("Progress save error:", error);
+        });
+    }
+
+    function loadSavedProgress() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/progress/' + courseId).on('value', (snapshot) => {
+            const progress = snapshot.val() || 0;
+            document.getElementById('progressText').textContent = `Progress: ${progress}%`;
+        });
+    }
+
+    function showTab(id, sectionNumber, btnElement = null) {
+        document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btnElement) {
+            btnElement.classList.add('active');
+        } else {
+            updateActiveTabById(id);
+        }
+
+        saveProgress(sectionNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToSection(id, sectionNumber) {
+        showTab(id, sectionNumber, null);
+    }
+
+    function saveQuizScore(score, total) {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        const percent = Math.round((score / total) * 100);
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).set({
+            score: score,
+            total: total,
+            percent: percent,
+            updatedAt: new Date().toISOString()
+        }).then(() => {
+            document.getElementById('saved-score').textContent = `Saved quiz score: ${score}/${total} (${percent}%)`;
+        }).catch((error) => {
+            console.error("Quiz score save error:", error);
+        });
+    }
+
+    function loadSavedQuizScore() {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+
+        firebase.database().ref('users/' + user.uid + '/quizScores/' + courseId).on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                document.getElementById('saved-score').textContent = `Saved quiz score: ${data.score}/${data.total} (${data.percent}%)`;
+            }
+        });
+    }
+
+    function checkQuiz() {
+        let score = 0;
+
+        const q1 = document.querySelector('input[name="q1"]:checked');
+        const q2 = document.querySelector('input[name="q2"]:checked');
+        const q3 = document.querySelector('input[name="q3"]:checked');
+
+        if (!q1 || !q2 || !q3) {
+            document.getElementById('quiz-result').textContent = "Please answer all questions.";
+            document.getElementById('quiz-result').style.color = "red";
+            return;
+        }
+
+        if (q1.value === "a") score++;
+        if (q2.value === "b") score++;
+        if (q3.value === "a") score++;
+
+        document.getElementById('quiz-result').textContent = `Your score: ${score}/3`;
+        document.getElementById('quiz-result').style.color = score >= 2 ? "green" : "red";
+
+        saveQuizScore(score, 3);
+    }
+
+    function markAsComplete(courseId) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            firebase.database().ref('users/' + user.uid + '/progress/' + courseId).set(100)
+            .then(() => {
+                alert("DSA 100% Complete! Progress synced.");
+                window.location.href = 'dashboard-firebase.html';
+            });
+        } else {
+            alert("Please login first.");
+        }
+    }
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            loadSavedProgress();
+            loadSavedQuizScore();
+        }
+    });
+
     hljs.highlightAll();
 </script>
 </body>
